@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,body{
+  overflow-x: hidden;
+}
+
+.homepage_bg{
+  background-image: url('./assets/Images/bghome.svg');
+}
+
+.CardBgShadow:hover{
+  box-shadow: 10px 10px yellow;
+}
+
+.StaticBgShadow{
+  box-shadow: -20px -20px whitesmoke;
+}
+
+.footer-link{
+  color:rgb(103, 101, 101);
+  font-size:small;
+  margin-top: 3%;
+}
+.loginPageImage{
+  background-image: url('./assets/Images/frame.png');
+}

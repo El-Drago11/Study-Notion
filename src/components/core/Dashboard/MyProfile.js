@@ -9,13 +9,14 @@ const MyProfile = () => {
     const {user} = useSelector((store)=>store.profile)
     const navigate = useNavigate();
     const[imgErr , setImgErr] = useState(false);
+    console.log(user.image)
     return (
         <div className='p-7 w-[100%] overflow-hidden'>
             <h1 className='text-richblack-5 text-4xl'>My Profile</h1>
 
             <div className='grid md:grid-cols-2  sm:grid-cols-1 mt-10 w-11/12 gap-4 bg-richblack-800 rounded-md p-6'>
                 <div className='flex md:flex-row items-center gap-7 sm:flex-col'>
-                    {imgErr || user?.image ?  (<FaUser className='h-10 w-10 text-white' />)
+                    {imgErr || !user?.image ?  (<FaUser className='h-10 w-10 text-white' />)
                      : (<img src={user?.image} alt={user?.firstName} className='rounded-full h-16'/>) }
                     <div className='flex flex-col'>
                         <p className='text-richblack-5'>{user?.firstName}</p>

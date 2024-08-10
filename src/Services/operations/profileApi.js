@@ -18,7 +18,7 @@ export function updateProfilePic(formData,token){
             toast.success("Profile pic uploaded successfully");
         } catch (error) {
             console.log(error);
-            toast.error("Uable to upload Profile Image")
+            toast.error("Unable to upload Profile Image")
         }
         toast.dismiss(toatID);
     }

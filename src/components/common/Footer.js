@@ -79,7 +79,7 @@ const Footer = () => {
             </ul>
         </div>
         <div>
-          <p className='text-richblack-300  mr-10'>Made With #CODEHELP @studyNotion(2023)</p>
+          <p className='text-richblack-300  mr-10'>All Right reserved to <a href='https://rahulsinghrawat-b746b.firebaseapp.com/'>El-Drago11</a></p>
         </div>
       </div>
 

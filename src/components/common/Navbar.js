@@ -62,7 +62,7 @@ const Navbar = () => {
                                         </div>
                                         <ul>
                                             {subLinks?.map((element,index)=>(
-                                                <Link to={`${element?.name}`} key={index}>
+                                                <Link to={`catalog/${element?.name}/${element?._id}`} key={index}>
                                                     <li  className='font-semibold border-b-2 border-richblack-100 py-2 hover:bg-richblack-200 rounded-full p-2 mb-2'>{element?.name}</li>
                                                 </Link>
                                             ))}

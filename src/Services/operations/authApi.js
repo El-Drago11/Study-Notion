@@ -114,10 +114,12 @@ export function resetPassword (password,confirmPassword,token,setEmailSent){
 }
 
 export function userLogout(dispatch,navigate){
+    return () =>{
     dispatch(setToken(null));
     dispatch(setUser(null))
     localStorage.removeItem("token")
     localStorage.removeItem("user")
     toast.success("Logged Out")
     navigate("/")
+    }
   }

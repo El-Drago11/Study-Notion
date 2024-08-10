@@ -2,9 +2,10 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
   step: 1,
-  course: null,
+  course: [],
   editCourse: false,
   paymentLoading: false,
+  courseContent: []
 }
 
 const courseReducer = createSlice({
@@ -25,7 +26,7 @@ const courseReducer = createSlice({
     },
     resetCourseState: (state) => {
       state.step = 1
-      state.course = null
+      state.course = []
       state.editCourse = false
     },
   },

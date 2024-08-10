@@ -36,7 +36,6 @@ const Sidebar = () => {
         </div>
         <div className='flex flex-col pt-10 gap-y-4'>
             <SidebarData element={{name:"Setting",path:"dashboard/settings"}} iconName={"VscSettingsGear"}/> 
-            {/* <SidebarData element={{name:"Setting",path:"/"}} iconName={"VscSignOut"}/> */}
             <button onClick={()=>setConfirmationModal({
                 text1:"Are you sure ?",
                 text2:"You will be logged out of your account",

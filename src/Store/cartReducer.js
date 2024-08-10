@@ -48,7 +48,7 @@ const cartSlice = createSlice({
             }
         },
         // resetCard
-        resetCard(state,action){
+        resetCart(state,action){
             state.cart = [];
             state.total = 0;
             state.totalItems = 0;
@@ -61,5 +61,5 @@ const cartSlice = createSlice({
     }
 })
 
-export const{addToCart,removeItemsfromcart,resetCard} = cartSlice.actions
+export const{addToCart,removeItemsfromcart,resetCart} = cartSlice.actions
 export default cartSlice.reducer

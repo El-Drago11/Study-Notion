@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
 import { addCourseDetails, fetchCourseCategories } from '../../../../../Services/operations/courseDetailsAPI';
-import { setEditCourse, setStep } from '../../../../../Store/courseReducer';
+import { setCourse, setStep } from '../../../../../Store/courseReducer';
+import { COURSE_STATUS } from '../../../../../utils/constants';
+import Upload from '../../../../common/Upload';
 
 const CourseInfoForm = () => {
     const {register,handleSubmit,reset,formState:{errors,isSubmitSuccessful},setValue,getValues} = useForm();
@@ -23,31 +25,16 @@ const CourseInfoForm = () => {
             formData.append("whatYouWillLearn", data.whatYouWillLearn)
             formData.append("category", data.category )
             formData.append("instructions", data.instructions)
-            formData.append("thumbnailImage", previewThumbnail)
-            formData.append("status", 'Published')
+            formData.append("thumbnailImage", data.courseImage)
+            formData.append("status", COURSE_STATUS.DRAFT)
             const result = await addCourseDetails(formData,token)
-            console.log("New course : ",result)
-            dispatch(setStep(2))
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    //-----> Uploading and previweing Image
-    const inputImage = useRef()
-    const handleClick = ()=>{
-        inputImage.current.click()
-    }
-    const[previewThumbnail,setPreviewThumbnail] = useState(null);
-    const ThumbnailUpload = (e)=>{
-        try {
-            const file = e.target.files[0];
-            console.log(file);
-            if (file) {
-                setPreviewThumbnail(file);
+            if(result){
+                dispatch(setStep(2))
+                console.log("New course : ",result)
+                dispatch(setCourse(result));
             }
         } catch (error) {
-            console.error("Error uploading image:", error);
+            console.log(error)
         }
     }
 
@@ -70,10 +57,23 @@ const CourseInfoForm = () => {
                 category:"",
                 tag:"",
                 whatYouWillLearn:"",
-                instructions:""
+                instructions:"",
+                courseImage:""
             })
         }
         getCategories();
+        
+        // if form is in edit mode
+        if (editCourse) {
+            setValue("courseName", course.courseName)
+            setValue("courseDescription", course.courseDescription)
+            setValue("price", course.price)
+            setValue("tag", course.tag)
+            setValue("whatYouWillLearn", course.whatYouWillLearn)
+            setValue("category", course.category)
+            setValue("instructions", course.instructions)
+            setValue("courseImage", course.thumbnail)
+        }
     },[isSubmitSuccessful,reset])
   return (
     <>
@@ -143,20 +143,11 @@ const CourseInfoForm = () => {
                 }
             </div>
 
-            {/* Prevewing and Uploading the image */}
-            <div className=' flex flex-col gap-2 mb-7'>
-                <label htmlFor='thumbnail' className='label-style text-richblack-5 text-sm'> Course Thumbnail</label>
-                <input id='thumbnail' name='thumbnail' type='file' onChange={ThumbnailUpload}  accept='image/png, image/gif, image/jpeg' className='hidden' ref={inputImage} required={true}/>
-                {
-                    errors.thumbnail && (
-                        <span className=' text-sm text-richblack-5'>
-                            Enter course course Thumbnail
-                        </span>
-                    )
-                }
-                <img src={previewThumbnail ? URL.createObjectURL(previewThumbnail) : ''} className='form-style p-2 rounded-md bg-richblack-600 text-richblack-500 h-32 text-center text-4xl object-contain' onClick={handleClick} alt='Upload Course Thumbnail'/>
-            </div>
-            <div className=' flex flex-col gap-2 mb-7'>
+           {/* Course Thumbnail Image */}
+            <Upload name="courseImage" label="Course Thumbnail" register={register} setValue={setValue}errors={errors} editData={editCourse ? course?.thumbnail : null}
+            />
+
+            <div className=' flex flex-col gap-2 mb-7 mt-4'>
                 <label htmlFor='whatYouWillLearn' className='label-style text-richblack-5 text-sm'>Benifits of the course</label>
                 <input id='whatYouWillLearn' name='whatYouWillLearn' type='text' placeholder='Enter Benifits Of The Course' className='form-style p-2 rounded-md bg-richblack-600 text-richblack-5' {...register("whatYouWillLearn",{required:true})}/>
                 {

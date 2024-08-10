@@ -2,6 +2,8 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { TiTick } from "react-icons/ti";
 import CourseInfoForm from './CourseInformation/CourseInfoForm';
+import CourseBuildForm from './CourseBulider/CourseBuildForm';
+import PublishCourse from './CourseBulider/PublishCourse';
 
 const RenderStep = () => {
   const {step} = useSelector((store)=>store.course)
@@ -37,7 +39,9 @@ const RenderStep = () => {
           ))}
         </div>
         <div className=' flex flex-col bg-richblack-800 py-5 px-10 mt-7 rounded-md mb-10'>
-            <CourseInfoForm/>
+            {step===1 ? (<CourseInfoForm/>) : ""}
+            {step===2 ? (<CourseBuildForm/>) : ""}
+            {step===3 ? (<PublishCourse/>) : ""}
         </div>
     </div>
   )

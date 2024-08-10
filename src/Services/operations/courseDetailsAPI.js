@@ -204,9 +204,9 @@ export const updateSubSection = async (data, token) => {
     })
     console.log("UPDATE SUB-SECTION API RESPONSE............", response)
     if (!response?.data?.success) {
-      throw new Error("Could Not Update Lecture")
+      throw new Error("Could Not Update SubSECTION")
     }
-    toast.success("Lecture Updated")
+    toast.success("SubSection Updated")
     result = response?.data?.data
   } catch (error) {
     console.log("UPDATE SUB-SECTION API ERROR............", error)
@@ -247,10 +247,10 @@ export const deleteSubSection = async (data, token) => {
     })
     console.log("DELETE SUB-SECTION API RESPONSE............", response)
     if (!response?.data?.success) {
-      throw new Error("Could Not Delete Lecture")
+      throw new Error("Could Not Delete SubSection")
     }
-    toast.success("Lecture Deleted")
     result = response?.data?.data
+    toast.success("SubSection Deleted")
   } catch (error) {
     console.log("DELETE SUB-SECTION API ERROR............", error)
     toast.error(error.message)

@@ -53,6 +53,8 @@ const coursesSchema = new mongoose.Schema({
 		type: String,
 		enum: ["Draft", "Published"],
 	},
+}, {
+    strictPopulate: false
 });
 
 // Export the Courses model

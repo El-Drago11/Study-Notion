@@ -1,11 +1,8 @@
-// Import the required modules
 const express = require("express")
 const router = express.Router()
 
-// Import the Controllers
-
 // Course Controllers Import
-const {createCourse,getAllCourses,getCourseDetails,} = require("../controllers/Course")
+const {createCourse,getAllCourses,getCourseDetails,editCourse, getInstructorCourses, deleteCourse, getFullCourseDetails} = require("../controllers/Course")
 
 
 // Categories Controllers Import
@@ -45,12 +42,20 @@ router.post("/addSubSection", auth, isInstructor, createSubSection)
 router.get("/getAllCourses", getAllCourses)
 // Get Details for a Specific Courses
 router.post("/getCourseDetails", getCourseDetails)
+// Edit Course routes
+router.post("/editCourse", auth, isInstructor, editCourse)
+// Get all Courses Under a Specific Instructor
+router.get("/getInstructorCourses", auth, isInstructor, getInstructorCourses)
+// Delete a Course
+router.delete("/deleteCourse", deleteCourse)
+// Get Details for a Specific Courses
+router.post("/getFullCourseDetails", auth, getFullCourseDetails)
+
 
 // ********************************************************************************************************
 //                                      Category routes (Only by Admin)
 // ********************************************************************************************************
 // Category can Only be Created by Admin
-// TODO: Put IsAdmin Middleware here
 router.post("/createCategory", auth, isAdmin, createCategory)
 router.get("/showAllCategories", showAllCategories)
 router.post("/getCategoryPageDetails", categoryPageDetails)

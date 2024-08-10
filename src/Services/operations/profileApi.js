@@ -24,17 +24,20 @@ export function updateProfilePic(formData,token){
     }
 } 
 
-export function getEnrolledCourses(token){
-    return async()=>{
+export  async function getEnrolledCourses(token){
         const toastId = toast.loading("Fetching Enrolled Courses");
+        let result = [];
         try {
             const response = await apiConnector("GET",profileEndpoints.GET_ENROLLED_COURSES_API,null,{Authorization: `Bearer ${token}`})
-            // console.log(response)
-            
+            console.log("Response fro backend : ",response.data.data )
+            if (!response.data.success) {
+                throw new Error(response.data.message)
+            }
+            result = response.data.data
         } catch (error) {
             console.log(error);
             toast.error("Unable to fetch Enrolled Courses")
         }
         toast.dismiss(toastId)
-    }
+        return result
 }

@@ -69,7 +69,7 @@ export async function buyCourse( token, courses, user_details, navigate, dispatc
     } 
     catch (error) {
         console.log("PAYMENT API ERROR............", error)
-        toast.error("Could Not make Payment.")
+        toast.error(`${error.message || "Something went wrong!"}`)
     }
     toast.dismiss(toastId)
 }

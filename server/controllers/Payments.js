@@ -37,7 +37,7 @@ exports.capturePayment = async (req, res) => {
         if (course.studentsEnrolled.includes(uid)) {
           return res
             .status(200)
-            .json({ success: false, message: "Student is already Enrolled" })
+            .json({ success: false, message: "Already Buyed" })
         }
   
         // Add the price of the course to the total amount

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route,Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import Home from './Pages/Home'
 import Navbar from './components/common/Navbar'
 import Signup from './Pages/Signup'
@@ -21,41 +21,45 @@ import MyCourses from './components/core/Dashboard/MyCourses'
 import EditCourse from './components/core/Dashboard/EditCourse'
 import Catalog from './Pages/Catalog'
 import CourseDetails from './Pages/CourseDetails'
+import SupportDesk from './Pages/SupportDesk'
+import Message from './components/core/Chat/Message'
 
 const App = () => {
-  const {user} = useSelector((store)=>store.profile)
+  const { user } = useSelector((store) => store.profile)
   return (
     <div className='w-screen min-h-screen  bg-richblack-900 flex flex-col font-inter'>
-      <Navbar/>
+      <Navbar />
       <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path="signup" element={<Signup/>}/>
-        <Route path="login" element={<Login/>}/>
-        <Route path="catalog/:catalogName/:catalogId" element={<Catalog/>}/>
-        <Route path="courses/:courseId" element={<CourseDetails/>}/>
-        <Route path='forgot-password' element={<ForgotPassword/>}/>
-        <Route path='update-password/:id' element={<UpdatePassword/>}/>
-        <Route path='verify-email' element={<VerifyEmail/>}/>
-        <Route path='About-us' element={<About/>}/>
+        <Route path='/' element={<Home />} />
+        <Route path="signup" element={<Signup />} />
+        <Route path="login" element={<Login />} />
+        <Route path="catalog/:catalogName/:catalogId" element={<Catalog />} />
+        <Route path="courses/:courseId" element={<CourseDetails />} />
+        <Route path='forgot-password' element={<ForgotPassword />} />
+        <Route path='update-password/:id' element={<UpdatePassword />} />
+        <Route path='verify-email' element={<VerifyEmail />} />
+        <Route path='About-us' element={<About />} />
         <Route element={
-                        <PrivateRoute>
-                          <DashBoard/>
-                        </PrivateRoute>
-                      }
+          <PrivateRoute>
+            <DashBoard />
+          </PrivateRoute>
+        }
         >
-          <Route path='dashboard/my-profile' element={<MyProfile/>}/>
-          <Route path='dashboard/settings' element={<Settings/>}/>
+          <Route path='dashboard/my-profile' element={<MyProfile />} />
+          <Route path='dashboard/settings' element={<Settings />} />
           {user?.accountType === "Student" && (<>
-            <Route path='dashboard/enrolled-courses' element={<EnrolledCourses/>}/>
-            <Route path='dashboard/cart' element={<Cart/>}/>
+            <Route path='dashboard/enrolled-courses' element={<EnrolledCourses />} />
+            <Route path='dashboard/cart' element={<Cart />} />
+            <Route path='/supportDesk' element={<SupportDesk/>}/>
           </>)}
           {user?.accountType === "Instructor" && (<>
-            <Route path='dashboard/add-course' element={<AddCourses/>}/>
-            <Route path='dashboard/my-courses' element={<MyCourses/>}/>
-            <Route path='dashboard/edit-course/:courseId' element={<EditCourse/>}/>
+            <Route path='dashboard/add-course' element={<AddCourses />} />
+            <Route path='dashboard/my-courses' element={<MyCourses />} />
+            <Route path='dashboard/edit-course/:courseId' element={<EditCourse />} />
           </>)}
+          <Route path='userChat/:userId' element={<Message/>}/>
         </Route>
-        <Route path='*' element={<ErrorPage/>}/>
+        <Route path='*' element={<ErrorPage />} />
       </Routes>
     </div>
   )

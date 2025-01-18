@@ -11,13 +11,11 @@ export function updateProfilePic(formData,token){
                   "Content-Type": "multipart/form-data",
                   Authorization: `Bearer ${token}`,
                 });
-            console.log(response)
             if(!response.data.success){
                 throw new Error("Error : ", response.data);
             }
             toast.success("Profile pic uploaded successfully");
         } catch (error) {
-            console.log(error);
             toast.error("Unable to upload Profile Image")
         }
         toast.dismiss(toatID);
@@ -29,15 +27,30 @@ export  async function getEnrolledCourses(token){
         let result = [];
         try {
             const response = await apiConnector("GET",profileEndpoints.GET_ENROLLED_COURSES_API,null,{Authorization: `Bearer ${token}`})
-            console.log("Response fro backend : ",response.data.data )
             if (!response.data.success) {
                 throw new Error(response.data.message)
             }
             result = response.data.data
         } catch (error) {
-            console.log(error);
             toast.error("Unable to fetch Enrolled Courses")
         }
         toast.dismiss(toastId)
         return result
+}
+
+export async function getUserDetailById(userId) {
+    
+    const toastId = toast.loading('Fetching user details');
+    let result;
+    try {
+        const response = await apiConnector('GET',profileEndpoints.GET_USERDETAILS_BY_ID_API,null,null,{userId});
+        result = response?.data?.data
+        if(!response.data.success){
+            throw new Error(response.data.message);
+        }
+    } catch (error) {
+        toast.error("Unable to fetch user profile")
+    }
+    toast.dismiss(toastId)
+    return result;
 }

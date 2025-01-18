@@ -14,7 +14,8 @@ export const settingsEndpoints = {
 
 export const profileEndpoints = {
     UPDATEDISPLAYPICTURE_API : BASE_URL +"/profile/updateDisplayPicture",
-    GET_ENROLLED_COURSES_API : BASE_URL +"/profile/getEnrolledCourses"
+    GET_ENROLLED_COURSES_API : BASE_URL +"/profile/getEnrolledCourses",
+    GET_USERDETAILS_BY_ID_API : BASE_URL+"/profile/getUserDetailById"
 }
 
 // CONTACT-US API
@@ -52,4 +53,8 @@ export const paymentEndpoints = {
     COURSE_PAYMENT_API: BASE_URL + "/payment/capturePayment",
     COURSE_VERIFY_API: BASE_URL + "/payment/verifyPayment",
     SEND_PAYMENT_SUCCESS_EMAIL_API: BASE_URL + "/payment/sendPaymentSuccessEmail",
-  }
+}
+
+export const adminEndPoints = {
+    ADMIN_DETAILS_API : BASE_URL + "/admin/adminDetail"
+}

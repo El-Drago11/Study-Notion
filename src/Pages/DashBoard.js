@@ -10,10 +10,10 @@ const DashBoard = () => {
   const {loading:authLoading} =  useSelector((store)=>store.auth)
 
   return (
-    <div className='relative flex flex-row min-h-screen'>
+    <div className='h-[90vh] relative flex flex-row'>
         <Sidebar/>
-        <div className='h-screen overflow-auto w-[80%]'>
-            <div className='mx-auto w-11/12 max-w-maxContent'>
+        <div className='overflow-auto w-[80%] h-full'>
+            <div className='mx-auto max-w-maxContent h-full px-4'>
                 <Outlet/>
             </div>
         </div>

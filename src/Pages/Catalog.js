@@ -14,10 +14,8 @@ const Catalog = () => {
     useEffect(()=>{
         setCategoryId(catalogId)
         const getCategoryDetails = async()=>{
-            console.log("CategoryId : ",catalogId);
             try {
                 const res = await getCatalogPageDetails(catalogId);
-                console.log("getCatalogPageDetails : ", res)
                 setCatalogPageData(res);
             } catch (error) {
                 console.lof(error)

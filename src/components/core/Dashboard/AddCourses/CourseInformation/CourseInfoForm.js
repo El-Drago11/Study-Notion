@@ -30,11 +30,10 @@ const CourseInfoForm = () => {
             const result = await addCourseDetails(formData,token)
             if(result){
                 dispatch(setStep(2))
-                console.log("New course : ",result)
                 dispatch(setCourse(result));
             }
         } catch (error) {
-            console.log(error)
+            throw new Error(error)
         }
     }
 

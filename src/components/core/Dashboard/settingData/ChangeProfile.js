@@ -10,7 +10,6 @@ const ChangeProfile = () => {
     const dispatch  = useDispatch();
     const { token } = useSelector((store) => store.auth)
     const { user } = useSelector((store) => store.profile)
-    console.log(user.image);
 
     const fileInputRef = useRef(null);
     const handleClick =()=>{
@@ -23,7 +22,6 @@ const ChangeProfile = () => {
 
     const handleFileChange = (e)=>{
         const file = e.target.files[0];
-        console.log(file);
         if(file){
             setImageFile(file);
             setPreviewImage(file)
@@ -32,16 +30,14 @@ const ChangeProfile = () => {
 
     const handleFileUpload = ()=>{
         try {
-            console.log('Uploading...')
             setLoading(true)
             const formData = new FormData()
             formData.append("displayPicture ",imageFile)
-            console.log("formData : ",formData)
             dispatch(updateProfilePic(formData,token)).then(()=>{
                 setLoading(false)
             });
         } catch (error) {
-            console.log("Error Message : ",error.message)
+            throw new Error(error)
         }
     }
 

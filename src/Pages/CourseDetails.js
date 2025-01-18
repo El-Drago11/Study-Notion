@@ -13,7 +13,6 @@ const CourseDetails = () => {
   const navigate = useNavigate();
   const { courseId } = useParams();
   const [courseData, setCourseData] = useState();
-  console.log(courseData)
 
   const handleBuyCourse = (token) => {
     if (token) {

@@ -6,6 +6,7 @@ const port  = process.env.PORT || 8000;
 const cors = require('cors');
 const cookieParser = require('cookie-parser')
 const fileUpload = require('express-fileupload')
+const http = require('http')
 
 // Routes Import
 const userRoute = require('./routes/User');
@@ -13,9 +14,11 @@ const profileRoute = require('./routes/Profile');
 const courseRoute = require('./routes/Course')
 const paymentRoute = require('./routes/Payments');
 const contactRoute = require('./routes/Contact')
+const adminRoute = require('./routes/Admin')
 
 // connections
-const {cloudinaryConnect} = require('./config/cloudinary')
+const {cloudinaryConnect} = require('./config/cloudinary');
+const initializeTheSocket = require('./utils/socket');
 cloudinaryConnect(); //-->cloudiary connection
 require('./config/database').connect()//--> connection to db
 
@@ -37,6 +40,19 @@ app.use('/api/v1/profile',profileRoute)
 app.use('/api/v1/course',courseRoute)
 app.use('/api/v1/payment',paymentRoute)
 app.use('/api/v1/reach',contactRoute)
+app.use('/api/v1/admin',adminRoute)
+
+//------->Socket setup ----------------
+
+//step-1: integrating the http server with the express app
+const server = http.createServer(app)
+
+//step-2: A function to handle socket
+initializeTheSocket(server)
+
+//-------------->socket setup-----------------
+
+
 //---> default Route
 app.get('/',(req,res)=>{
     return res.json({
@@ -44,8 +60,8 @@ app.get('/',(req,res)=>{
         message : `your server is Running at ${port}`
     })
 })
-//---> app hosted
-app.listen(port ,(req,res)=>{
+//---> app hosted(server is used when socket listen)
+server.listen(port ,(req,res)=>{
     console.log(`APP is  running successful at ${port}`)
 })
 

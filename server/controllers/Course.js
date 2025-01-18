@@ -55,7 +55,6 @@ exports.createCourse = async (req, res) => {
 			thumbnail,
 			process.env.FOLDER_NAME
 		);
-		console.log(thumbnailImage);
 		// Create a new course with the given details
 		const newCourse = await Course.create({
 			courseName,
@@ -80,7 +79,6 @@ exports.createCourse = async (req, res) => {
 			},
 			{ new: true }
 		  )
-		  console.log("HEREEEEEEEE", categoryDetails2)
 		// Add the new course to the Categories
 		await Category.findByIdAndUpdate(
 			{ _id: category },
@@ -121,7 +119,6 @@ exports.editCourse = async (req, res) => {
   
 	  // If Thumbnail Image is found, update it
 	  if (req.files) {
-		console.log("thumbnail update")
 		const thumbnail = req.files.thumbnailImage
 		const thumbnailImage = await uploadImageToCloudinary(
 		  thumbnail,
@@ -197,7 +194,6 @@ exports.getAllCourses = async (req, res) => {
 			data: allCourses,
 		});
 	} catch (error) {
-		console.log(error);
 		return res.status(404).json({
 			success: false,
 			message: `Can't Fetch Course Data`,
@@ -248,7 +244,6 @@ exports.getCourseDetails = async (req, res) => {
 
     }
     catch(error) {
-        console.log(error);
         return res.status(500).json({
             success:false,
             message:error.message,
@@ -362,9 +357,7 @@ exports.getFullCourseDetails = async (req, res) => {
 		courseID: courseId,
 		userId: userId,
 	  })
-  
-	  console.log("courseProgressCount : ", courseProgressCount)
-  
+    
 	  if (!courseDetails) {
 		return res.status(400).json({
 		  success: false,

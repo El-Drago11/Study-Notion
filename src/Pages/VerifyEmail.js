@@ -17,7 +17,6 @@ const VerifyEmail = () => {
         e.preventDefault();
 
         const {firstName,lastName,email,password,confirmPassword,accountType,contactNumber} = signupData
-        console.log("Signup data : ",signupData)
 
         dispatch(signUp(firstName,lastName,email,password,confirmPassword,accountType,contactNumber,otp,navigate))
     }

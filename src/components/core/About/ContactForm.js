@@ -11,16 +11,13 @@ const ContactForm = () => {
   const{register,handleSubmit,reset,formState:{errors,isSubmitSuccessful}} =useForm();
 
   const submitContactForm = async(data)=>{
-    console.log("Form Data : ",data);
     const toastId = toast.loading("Sending Message")
     try {
       setLoading(true)
       const response = await apiConnector("POST",contactusEndpoint.CONTACT_US_API,data)
-      console.log("Form response : ",response);
       setLoading(false);
       toast.success("Message Sent Succesfully")
     } catch (error) {
-      console.log("Error in Contact us Form : ",error.message);
       setLoading(false)
       
       toast.error("Unable to send message")

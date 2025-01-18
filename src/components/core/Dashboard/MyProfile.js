@@ -9,7 +9,6 @@ const MyProfile = () => {
     const {user} = useSelector((store)=>store.profile)
     const navigate = useNavigate();
     const[imgErr , setImgErr] = useState(false);
-    console.log(user.image)
     return (
         <div className='p-7 w-[100%] overflow-hidden'>
             <h1 className='text-richblack-5 text-4xl'>My Profile</h1>

@@ -43,7 +43,6 @@ exports.capturePayment = async (req, res) => {
         // Add the price of the course to the total amount
         total_amount += course.price
       } catch (error) {
-        console.log(error)
         return res.status(500).json({ success: false, message: error.message })
       }
     }
@@ -57,13 +56,11 @@ exports.capturePayment = async (req, res) => {
     try {
       // Initiate the payment using Razorpay
       const paymentResponse = await instance.orders.create(options)
-      console.log(paymentResponse)
       res.json({
         success: true,
         data: paymentResponse,
       })
     } catch (error) {
-      console.log(error)
       res
         .status(500)
         .json({ success: false, message: "Could not initiate order." })
@@ -130,7 +127,6 @@ exports.capturePayment = async (req, res) => {
         )
       )
     } catch (error) {
-      console.log("error in sending mail", error)
       return res
         .status(400)
         .json({ success: false, message: "Could not send email" })
@@ -158,9 +154,7 @@ exports.capturePayment = async (req, res) => {
           return res
             .status(500)
             .json({ success: false, error: "Course not found" })
-        }
-        console.log("Updated course: ", enrolledCourse)
-  
+        }  
         const courseProgress = await CourseProgress.create({
           courseID: courseId,
           userId: userId,
@@ -177,9 +171,7 @@ exports.capturePayment = async (req, res) => {
           },
           { new: true }
         )
-  
-        console.log("Enrolled student: ", enrolledStudent)
-        // Send an email notification to the enrolled student
+          // Send an email notification to the enrolled student
         const emailResponse = await mailSender(
           enrolledStudent.email,
           `Successfully Enrolled into ${enrolledCourse.courseName}`,
@@ -189,9 +181,7 @@ exports.capturePayment = async (req, res) => {
           )
         )
   
-        console.log("Email sent successfully: ", emailResponse.response)
       } catch (error) {
-        console.log(error)
         return res.status(400).json({ success: false, error: error.message })
       }
     }

@@ -155,3 +155,20 @@ exports.getAllUserDetailsById = async (req, res) => {
 		});
 	}
 };
+
+exports.getAllRegisterUserDetail = async(req,res)=>{
+	try {
+		const registerUsers = await User.find({accountType:'Student'})
+		.populate('additionalDetails').exec();
+		res.status(200).json({
+			success:true,
+			message:'All student fetched',
+			data: registerUsers
+		})
+	} catch (error) {
+		return res.status(500).json({
+			success:false,
+			message:error.message
+		})
+	}
+}

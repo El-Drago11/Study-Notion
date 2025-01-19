@@ -14,3 +14,16 @@ export async function getAdminProfileDetail (){
     toast.dismiss(toastId);
     return resp?.data?.data;
 }
+
+export async function getAllRegistredStudent() {
+    const toastId = toast.loading("Fetching registred students");
+    let resp ;
+    try {
+        const response = await apiConnector("GET",adminEndPoints.REGISTRED_STUDENT_API)
+        resp =  response
+    } catch (error) {
+        toast.error("Unable to fetch Registred student");
+    }
+    toast.dismiss(toastId);
+    return resp?.data?.data;
+}

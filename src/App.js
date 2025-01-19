@@ -50,13 +50,13 @@ const App = () => {
           {user?.accountType === "Student" && (<>
             <Route path='dashboard/enrolled-courses' element={<EnrolledCourses />} />
             <Route path='dashboard/cart' element={<Cart />} />
-            <Route path='/supportDesk' element={<SupportDesk/>}/>
           </>)}
           {user?.accountType === "Instructor" && (<>
             <Route path='dashboard/add-course' element={<AddCourses />} />
             <Route path='dashboard/my-courses' element={<MyCourses />} />
             <Route path='dashboard/edit-course/:courseId' element={<EditCourse />} />
           </>)}
+          <Route path='/supportDesk' element={<SupportDesk/>}/>
           <Route path='userChat/:userId' element={<Message/>}/>
         </Route>
         <Route path='*' element={<ErrorPage />} />

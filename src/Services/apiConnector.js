@@ -2,17 +2,22 @@ import axios from "axios";
 
 export const axiosInstance = axios.create({});
 
-export const apiConnector = (method,url,bodyData=null,headers=null,params=null)=>{
-    const token = localStorage.getItem('token');
-    if(!token){
-        window.location.href = '/login';
-        return;
+export const apiConnector = async (method, url, bodyData = null, headers = {}, params = null) => {
+    const token = localStorage.getItem("token");
+    const authHeaders = token ? { Authorization: `Bearer ${JSON.parse(token)}` } : {};
+    try {
+        console.log("API Request:", { method, url, bodyData, headers, params });
+        const response = await axiosInstance({
+            method,
+            url,
+            data: bodyData || null,
+            headers: { ...authHeaders, ...headers },
+            params: params || null,
+        });
+        console.log("API Response:", response);
+        return response;
+    } catch (error) {
+        console.error("API Error:", error.response || error.message);
+        throw error; // Re-throw for caller handling
     }
-    return axiosInstance({
-        method :`${method}`,
-        url:`${url}`,
-        data:bodyData ? bodyData : null,
-        headers:{Authorization: `Bearer ${JSON.parse(token)}`},
-        params : params ? params : null
-    })
-}
+};

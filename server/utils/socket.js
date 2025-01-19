@@ -10,18 +10,21 @@ const initializeTheSocket = (server) => {
     //step-4: when the web trying to connect with the backend
     io.on("connection", (socket) => {
         //-----> handle events
-        socket.on("join-chat",({senderId,recieverId})=>{
+        socket.on("join-chat",({senderId,senderName,recieverId,recieverName})=>{
             //create a uniqueId
-            const roomId = [senderId,recieverId].join('_');
+            const roomId = [senderId,recieverId].sort().join('_').trim();
+            console.log("Roomid : ",roomId)
             socket.join(roomId)
-            console.log("Joining room : ",roomId)
         });
-        socket.on("send-message",()=>{
-
+        socket.on("send-message",({senderId,recieverId,message})=>{
+            const roomId = [senderId,recieverId].sort().join('_').trim();
+            console.log("Message : ",message)
+            console.log("Roomid : ",roomId)
+            io.to(roomId).emit("recieve-message",{senderId,recieverId,message})
         })
 
         socket.on("disconnect",()=>{
-
+            console.log("User successfully disconnected")
         })
     });
 }

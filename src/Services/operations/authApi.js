@@ -9,19 +9,20 @@ export function login (email,password,navigate){
         dispatch(setLoginLoading(true));
         const toastId = toast.loading("Loging You in..");
         try {
+            console.log(" Before hitiing login : ",settingsEndpoints.LOGIN_API,{email,password})
             const response = await apiConnector("POST",settingsEndpoints.LOGIN_API,{email,password})
-            if(!response.data.success){
-                throw new Error(response.data.message);
-            }
+            if(response){
             toast.success(`Welcome back ${email}`);
             dispatch(setUser(response.data.user))
             dispatch(setToken(response.data.user.token))
             localStorage.setItem("token",JSON.stringify(response.data.user.token))
             localStorage.setItem("user",JSON.stringify(response.data.user))
             navigate('/')
+            }
         } catch (error) {
-            toast.error("Unable to login");
+            console.error("Login API Error:", error.response ? error.response.data : error.message);
         }
+        
         toast.dismiss(toastId);
         dispatch(setLoginLoading(false));
     }
@@ -91,6 +92,7 @@ export function resetPassword (password,confirmPassword,token,setEmailSent){
         try {
             const response = await apiConnector("POST",settingsEndpoints.RESETPASSWORD_API,{password,confirmPassword,token})
             if(!response.data.success){
+                console.log("HELLO : ",response)
                 throw new Error(response.data.message)
             }
             toast.success("password reset Successfully")

@@ -40,23 +40,20 @@ const Login = () => {
           </ul>
         </div>
         <form onSubmit={userLogin}>
-          <labe>
+          <label>
             <p className=' text-richblack-50'>Email Address</p>
             <input required type='email' name='email' value={email} onChange={(e)=>setEmail(e.target.value)} placeholder='Enter Email address' className='p-2 bg-richblack-700 w-full' id="userEmail"/>
-          </labe>
+          </label>
           <label>
             <p className='text-richblack-50 mt-4'>Password</p>
             <input required type='password' name='password' value={password} onChange={(e)=>setPassword(e.target.value)} placeholder='Enter Password' className='p-2 bg-richblack-700 w-full' id="userPassword"/>
           </label>
           <div className='text-sm text-blue-200 text-right mt-1'><Link to={"/forgot-password"}>ForgotPassword?</Link></div>
-          <button type='submit' className='bg-yellow-50 text-black w-full mt-10 py-2 px-4 rounded-full'>SignIN</button>
+          <button type='submit' className='bg-yellow-50 text-black w-full mt-10 py-2 px-4 rounded-full'>SignIn</button>
         </form>
       </div>
       <div className='loginPageImage w-[40%]'>
         <img src={loginImage} className='w-fit -translate-y-5 -translate-x-4'/>
-      </div>
-      <div>
-
       </div>
     </div>
   )

@@ -13,13 +13,10 @@ const initializeTheSocket = (server) => {
         socket.on("join-chat",({senderId,senderName,recieverId,recieverName})=>{
             //create a uniqueId
             const roomId = [senderId,recieverId].sort().join('_').trim();
-            console.log("Roomid : ",roomId)
             socket.join(roomId)
         });
         socket.on("send-message",({senderId,recieverId,message})=>{
             const roomId = [senderId,recieverId].sort().join('_').trim();
-            console.log("Message : ",message)
-            console.log("Roomid : ",roomId)
             io.to(roomId).emit("recieve-message",{senderId,recieverId,message})
         })
 

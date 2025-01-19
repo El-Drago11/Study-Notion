@@ -36,9 +36,7 @@ const Message = () => {
     }
 
     socket.on("recieve-message",({senderId,recieverId,message})=>{
-        // if(recieverId==user?._id && senderId == getRecieverData?.id){
-            setAllMessage((prev)=>[...prev,{senderId,recieverId,message}])
-        // }
+        setAllMessage((prev)=>[...prev,{senderId,recieverId,message}])
     })
 
     useEffect(() => {

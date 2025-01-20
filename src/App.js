@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Home from './Pages/Home'
 import Navbar from './components/common/Navbar'
@@ -23,9 +23,42 @@ import Catalog from './Pages/Catalog'
 import CourseDetails from './Pages/CourseDetails'
 import SupportDesk from './Pages/SupportDesk'
 import Message from './components/core/Chat/Message'
+import { Alert } from '@mui/material'
+import { getToken,onMessage } from 'firebase/messaging'
+import { messaging } from './Services/firebase/firebase'
+import toast from 'react-hot-toast'
 
 const App = () => {
   const { user } = useSelector((store) => store.profile)
+
+  async function notificationPermission(){
+    const permission = await Notification.requestPermission();
+    if(permission==="granted"){
+      const firebaseToken = await getToken(messaging,{vapidKey:'BIJXCq7TUghYvYv3zEyw6Y0S43ibJepPk4IgtBaaWhl4MTCj9mmzAt-kyymNYLDCbGJ2-gJQZPd6PmJ7D_gMycg'});
+      console.log("Firebase token : ",firebaseToken)
+    }else if(permission==="denied"){
+      Alert("Yoy will not get any notification")
+    }
+  }
+  
+onMessage(messaging, (payload) => {
+  console.log('Message received in foreground: ', payload);
+  // Display a notification if needed
+  const notificationTitle = payload.notification.title;
+  const notificationOptions = {
+      body: payload.notification.body,
+      icon: payload.notification.image
+  };
+
+  // Example: Show a custom notification
+  new Notification(notificationTitle, notificationOptions);
+  toast.success(payload.notification.body)
+});
+
+  useEffect(()=>{
+    notificationPermission();
+  },[])
+
   return (
     <div className='w-screen min-h-screen  bg-richblack-900 flex flex-col font-inter'>
       <Navbar />

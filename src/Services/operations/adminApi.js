@@ -27,3 +27,16 @@ export async function getAllRegistredStudent() {
     toast.dismiss(toastId);
     return resp?.data?.data;
 }
+
+export async function getAllRegisterTeacher() {
+    const toastId = toast.loading("Fetching registred Instructor");
+    let resp;
+    try {
+        const response = await apiConnector("GET",adminEndPoints.REGISTRED_INSTRUCTOR_API);
+        resp = response
+    } catch (error) {
+        toast.error("Unable to fetch Registred Instructor")
+    }
+    toast.dismiss(toastId);
+    return resp?.data?.data;
+}

@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
-import { getAdminProfileDetail, getAllRegistredStudent } from "../Services/operations/adminApi";
+import { getAdminProfileDetail, getAllRegisterTeacher, getAllRegistredStudent } from "../Services/operations/adminApi";
 import { FiMessageSquare } from "react-icons/fi";
 import { RiMessage2Line } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import UserCard from "../components/common/UserCard";
+import { getEnrolledCourses } from "../Services/operations/profileApi";
 
 const SupportDesk = () => {
 
     const navigate = useNavigate();
-    const [getSupportDesk, setSupportDesk] = useState();
+    const [getSupportDesk, setSupportDesk] = useState([]);
+    const [getRegisteredTeacher, setRegisteredTeacher] = useState([]);
     const { user } = useSelector((store) => store.profile);
-    console.log("User : ", user)
 
     const fetchSupportDesk = async () => {
         if (user?.accountType != 'Admin') {
@@ -19,9 +21,15 @@ const SupportDesk = () => {
         }
         if (user?.accountType == 'Admin') {
             const resp = await getAllRegistredStudent();
-            console.log("Register student : ", resp)
             setSupportDesk(resp);
+            const InstructorList = await getAllRegisterTeacher();
+            setRegisteredTeacher(InstructorList)
         }
+        if(user?.accountType=='Student'){
+            const resp = await getEnrolledCourses();
+            setRegisteredTeacher(resp)
+        }
+        return;
     }
 
     const goToChat = (userId) => {
@@ -37,34 +45,39 @@ const SupportDesk = () => {
             <div className="text-2xl uppercase w-full text-center font-bold">Support desk</div>
             {
                 user?.accountType != 'Admin' &&
-                <div className="flex flex-row items-center gap-5 bg-richblack-500 p-2 rounded-lg mt-10">
-                    <img src={getSupportDesk?.image} className=" h-28 rounded-md" />
-                    <div className="flex flex-col gap-1 items-start">
-                        <div className="capitalize">Name : {getSupportDesk?.firstName + ' ' + getSupportDesk?.lastName}</div>
-                        <div>Contact : {getSupportDesk?.email}</div>
-                        <div>Position : <span className=" text-yellow-50">{getSupportDesk?.accountType}</span></div>
-                        <div className="flex gap-3 items-center cursor-pointer" onClick={() => goToChat(getSupportDesk?._id)}>Message : <RiMessage2Line color="yellow" /></div>
-                    </div>
-                </div>
+                <UserCard profileImage={getSupportDesk?.image} firstName={getSupportDesk?.firstName} lastName={getSupportDesk?.lastName} email={getSupportDesk?.email} accountType={getSupportDesk?.accountType} onClickFunction={() => goToChat(getSupportDesk?._id)} />
             }
             {
                 user?.accountType == 'Admin' &&
-                <div className=" flex flex-col mt-10 gap-4">
-                    <div className="text-2xl w-full font-bold underline">Students Enrolled</div>
-                    {
-                        getSupportDesk?.map((item) => (
-                            <div className="flex flex-row items-center gap-5 bg-richblack-500 p-2 rounded-lg">
-                                <img src={item?.image} className=" h-28 rounded-md" />
-                                <div className="flex flex-col gap-1 items-start">
-                                    <div className="capitalize">Name : {item?.firstName + ' ' + item?.lastName}</div>
-                                    <div>Contact : {item?.email}</div>
-                                    <div>Position : <span className=" text-yellow-50">{item?.accountType}</span></div>
-                                    <div className="flex gap-3 items-center cursor-pointer" onClick={() => goToChat(item?._id)}>Message : <RiMessage2Line color="yellow" /></div>
-                                </div>
-                            </div>
-                        ))
-                    }
-                </div>
+                <>
+                    <div className=" flex flex-col mt-10 gap-4">
+                        <div className="text-2xl w-full font-bold underline text-yellow-50">Students Enrolled</div>
+                        {
+                            getSupportDesk?.map((item) => (
+                                <UserCard profileImage={item?.image} firstName={item?.firstName} lastName={item?.lastName} email={item?.email} accountType={item?.accountType} onClickFunction={() => goToChat(item?._id)} />
+                            ))
+                        }
+                        <div className="text-2xl w-full font-bold underline mt-10 text-yellow-50">Registered Teacher</div>
+                        {
+                            getRegisteredTeacher?.map((item) => (
+                                <UserCard profileImage={item?.image} firstName={item?.firstName} lastName={item?.lastName} email={item?.email} accountType={item?.accountType} onClickFunction={() => goToChat(item?._id)} />
+                            ))
+                        }
+                    </div>
+                </>
+            }
+            {
+                user?.accountType == 'Student' &&
+                <>
+                    <div className=" flex flex-col mt-10 gap-4">
+                        <div className="text-2xl w-full font-bold underline mt-10 text-yellow-50">Your Instructor</div>
+                        {
+                            getRegisteredTeacher?.map((item) => (
+                                <UserCard profileImage={item?.image} firstName={item?.firstName} lastName={item?.lastName} email={item?.email} accountType={item?.accountType} onClickFunction={() => goToChat(item?._id)} />
+                            ))
+                        }
+                    </div>
+                </>
             }
         </div>
     )

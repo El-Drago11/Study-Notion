@@ -15,6 +15,7 @@ const courseRoute = require('./routes/Course')
 const paymentRoute = require('./routes/Payments');
 const contactRoute = require('./routes/Contact')
 const adminRoute = require('./routes/Admin')
+const chatRoute = require('./routes/Chat')
 
 // connections
 const {cloudinaryConnect} = require('./config/cloudinary');
@@ -41,6 +42,7 @@ app.use('/api/v1/course',courseRoute)
 app.use('/api/v1/payment',paymentRoute)
 app.use('/api/v1/reach',contactRoute)
 app.use('/api/v1/admin',adminRoute)
+app.use('/api/v1/chat',chatRoute)
 
 //------->Socket setup ----------------
 

@@ -116,7 +116,12 @@ exports.getEnrolledCourses = async (req, res) => {
 		const userDetails = await User.findOne({
 			_id: userId,
 		})
-			.populate("courses")
+			.populate({
+				path:"courses",
+				populate:{
+					path:'instructor',
+				}
+			})
 			.exec()
 		if (!userDetails) {
 			return res.status(400).json({
@@ -156,19 +161,43 @@ exports.getAllUserDetailsById = async (req, res) => {
 	}
 };
 
-exports.getAllRegisterUserDetail = async(req,res)=>{
+exports.getAllUserInstructor = async (req, res) => {
 	try {
-		const registerUsers = await User.find({accountType:'Student'})
-		.populate('additionalDetails').exec();
-		res.status(200).json({
-			success:true,
-			message:'All student fetched',
-			data: registerUsers
+		const userId = req.user.id
+		const userDetails = await User.findOne({
+			_id: userId,
+		})
+			.populate({
+				path: "courses",
+				populate: {
+					path: 'instructor',
+				}
+			})
+			.exec()
+		if (!userDetails) {
+			return res.status(400).json({
+				success: false,
+				message: `Could not find user with id: ${userDetails}`,
+			})
+		}
+
+		const uniqueInstructors = Array.from(
+			new Map(
+			  userDetails.courses.map((course) => [
+				course.instructor._id.toString(),
+				course.instructor,
+			  ])
+			).values()
+		  );
+
+		return res.status(200).json({
+			success: true,
+			data: uniqueInstructors,
 		})
 	} catch (error) {
 		return res.status(500).json({
-			success:false,
-			message:error.message
+			success: false,
+			message: error.message,
 		})
 	}
-}
+};

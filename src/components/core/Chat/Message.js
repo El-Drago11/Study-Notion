@@ -4,13 +4,16 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { NotificationsActiveOutlined } from "@mui/icons-material";
 import { createSocketConnection } from "../../../utils/socket";
 import { useSelector } from "react-redux";
-import toast from "react-hot-toast";
+import { getUserChatById } from "../../../Services/operations/userChatApi";
+import LoadindScreen from "../../common/LoaderScreen";
 
 const Message = () => {
     const params = useParams();
     const messageRef = useRef();
-    const socket = createSocketConnection();
+    const userToken = JSON.parse(localStorage.getItem('token')) || null;
+    const socket = createSocketConnection(userToken);
     const [getAllMessage,setAllMessage] = useState([]);
+    const [isLoading,setIsLoading] = useState(false);
 
     const { user } = useSelector((store) => store.profile)
 
@@ -23,7 +26,6 @@ const Message = () => {
 
     const sendMessage = () => {
         const messageData = messageRef?.current?.value?.trim();
-        console.log('Message data : ', messageData);
         if(!messageData.length) return;
         socket.emit('send-message',
             {
@@ -43,7 +45,19 @@ const Message = () => {
         getrecieverDetail();
     }, [params.userId])
 
+    const fetchUserChat = async(userId,recieverId)=>{
+        try {
+            const resp = await getUserChatById(userId,recieverId);
+            setAllMessage(resp)
+
+        } catch (error) {
+            throw new Error(error)   
+        }
+        setIsLoading(false);
+    }
+
     useEffect(() => {
+        setIsLoading(true);
         if(!user || !getRecieverData) return;
         //-->Connect to socket when component loads
         socket.emit("join-chat",
@@ -55,6 +69,9 @@ const Message = () => {
             }
         )
 
+        //--> get userChat by id's
+        fetchUserChat(user?._id,params.userId);
+
         //-->when component unmount disconnect the socket
         return () => {
             socket.disconnect();
@@ -63,10 +80,11 @@ const Message = () => {
 
     return (
         <div className="text-white bg-richblack-500 w-full flex flex-col h-full">
+            {isLoading && <LoadindScreen/>}
             <div className="flex items-center justify-between px-4 py-1 border-b-2 border-yellow-50 h-[10%]">
                 <div className="flex gap-2 items-center">
                     <img src={getRecieverData?.image} className="h-14 w-14 rounded-full" />
-                    <div>{getRecieverData?.firstName + ' ' + getRecieverData?.lastName}</div>
+                    <div>{getRecieverData?.firstName + ' ' + getRecieverData?.lastName + ' '+`(${getRecieverData?.accountType})`}</div>
                 </div>
                 <div>
                     <NotificationsActiveOutlined className="text-3xl" />
@@ -80,8 +98,8 @@ const Message = () => {
                             <div className="flex flex-row gap-2 items-center">
                             <img src={item?.senderId==user?._id ? user?.image :getRecieverData?.image} className="h-10 w-10 rounded-full"/>
                             </div> 
-                            <div className="text-white flex flex-row gap-2 items-center">
-                                <div>{item?.message}</div>
+                            <div className="text-white my-auto max-w-40 lg:max-w-[40rem] text-wrap overflow-hidden text-ellipsis">
+                                {item?.message}
                             </div>
                         </div>
                     ))

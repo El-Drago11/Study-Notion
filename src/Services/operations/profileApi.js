@@ -22,11 +22,11 @@ export function updateProfilePic(formData,token){
     }
 } 
 
-export  async function getEnrolledCourses(token){
+export  async function getEnrolledCourses(){
         const toastId = toast.loading("Fetching Enrolled Courses");
         let result = [];
         try {
-            const response = await apiConnector("GET",profileEndpoints.GET_ENROLLED_COURSES_API,null,{Authorization: `Bearer ${token}`})
+            const response = await apiConnector("GET",profileEndpoints.GET_ENROLLED_COURSES_API)
             if (!response.data.success) {
                 throw new Error(response.data.message)
             }

@@ -4,13 +4,11 @@ import { getEnrolledCourses } from '../../../Services/operations/profileApi';
 import ProgressBar from '@ramonak/react-progress-bar';
 
 const EnrolledCourses = () => {
-
-    const{token} = useSelector((store)=>store.auth)
     const[enrolledCourses , setEnrolledCourses] = useState(null);
 
-    const getEnrolledCoursesData = async(token)=>{
+    const getEnrolledCoursesData = async()=>{
         try {
-           const response = await getEnrolledCourses(token)
+           const response = await getEnrolledCourses()
            setEnrolledCourses(response);
         } catch (error) {
             throw new Error(error)
@@ -18,7 +16,7 @@ const EnrolledCourses = () => {
     }
 
     useEffect(()=>{
-        getEnrolledCoursesData(token)
+        getEnrolledCoursesData()
     },[])
 
   return (

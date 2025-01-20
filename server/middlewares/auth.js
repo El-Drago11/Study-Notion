@@ -2,6 +2,16 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const User = require("../models/User");
 
+exports.verifySocket = async(userToken)=>{
+	try {
+		const decode = await jwt.verify(userToken,process.env.JWT_SECRET)
+		if(decode) return true;
+		else return false;
+	} catch (error) {
+		return false;
+	}
+}
+
 //auth
 exports.auth = async (req, res, next) => {
     try{

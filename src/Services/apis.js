@@ -57,5 +57,11 @@ export const paymentEndpoints = {
 
 export const adminEndPoints = {
     ADMIN_DETAILS_API : BASE_URL + "/admin/adminDetail",
-    REGISTRED_STUDENT_API : BASE_URL + "/admin/getRegistredStudents"
+    REGISTRED_STUDENT_API : BASE_URL + "/admin/getRegistredStudents",
+    REGISTRED_INSTRUCTOR_API : BASE_URL+"/admin/getRegisterInstructor"
+}
+
+//Chat ENDPOINTS
+export const chatEndPoints = {
+    USERCHAT_BYID_API : BASE_URL + "/chat/getUserMessage",
 }

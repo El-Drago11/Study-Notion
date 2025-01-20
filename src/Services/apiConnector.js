@@ -6,7 +6,6 @@ export const apiConnector = async (method, url, bodyData = null, headers = {}, p
     const token = localStorage.getItem("token");
     const authHeaders = token ? { Authorization: `Bearer ${JSON.parse(token)}` } : {};
     try {
-        console.log("API Request:", { method, url, bodyData, headers, params });
         const response = await axiosInstance({
             method,
             url,
@@ -14,10 +13,11 @@ export const apiConnector = async (method, url, bodyData = null, headers = {}, p
             headers: { ...authHeaders, ...headers },
             params: params || null,
         });
-        console.log("API Response:", response);
         return response;
     } catch (error) {
+        window.location.href='/'
+        localStorage.clear();
         console.error("API Error:", error.response || error.message);
-        throw error; // Re-throw for caller handling
+        throw error;
     }
 };

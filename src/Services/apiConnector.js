@@ -15,8 +15,8 @@ export const apiConnector = async (method, url, bodyData = null, headers = {}, p
         });
         return response;
     } catch (error) {
-        window.location.href='/'
-        localStorage.clear();
+        // window.location.href='/'
+        // localStorage.clear();
         console.error("API Error:", error.response || error.message);
         throw error;
     }

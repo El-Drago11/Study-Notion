@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router()
 
 // Course Controllers Import
-const {createCourse,getAllCourses,getCourseDetails,editCourse, getInstructorCourses, deleteCourse, getFullCourseDetails} = require("../controllers/Course")
+const {createCourse,getAllCourses,getCourseDetails,editCourse, getInstructorCourses, deleteCourse, getFullCourseDetails, getAllEnrolledStudents} = require("../controllers/Course")
 
 
 // Categories Controllers Import
@@ -19,6 +19,7 @@ const {createRating,getAverageRating,getAllRating,} = require("../controllers/Ra
 
 // Importing Middlewares
 const { auth, isInstructor, isStudent, isAdmin } = require("../middlewares/auth")
+const { getAllUserInstructor } = require("../controllers/Profile")
 
 // ********************************************************************************************************
 //                                      Course routes
@@ -66,5 +67,8 @@ router.post("/getCategoryPageDetails", categoryPageDetails)
 router.post("/createRating", auth, isStudent, createRating)
 router.get("/getAverageRating", getAverageRating)
 router.get("/getReviews", getAllRating)
+//Route for userBuyed courde
+router.get("/userInstructor",auth,isStudent,getAllUserInstructor)
+router.get("/getEnrolledStudents",auth,isInstructor,getAllEnrolledStudents)
 
 module.exports = router

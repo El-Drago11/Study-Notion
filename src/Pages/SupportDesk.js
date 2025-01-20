@@ -5,16 +5,19 @@ import { RiMessage2Line } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import UserCard from "../components/common/UserCard";
-import { getEnrolledCourses } from "../Services/operations/profileApi";
+import { getEnrolledCourses, getInstructorStudents, getUserInstructor } from "../Services/operations/profileApi";
+import LoadindScreen from "../components/common/LoaderScreen";
 
 const SupportDesk = () => {
 
     const navigate = useNavigate();
     const [getSupportDesk, setSupportDesk] = useState([]);
-    const [getRegisteredTeacher, setRegisteredTeacher] = useState([]);
+    const [getRegistered, setRegistered] = useState([]);
     const { user } = useSelector((store) => store.profile);
+    const [isLoading,setIsLoading] = useState(false)
 
     const fetchSupportDesk = async () => {
+        setIsLoading(true)
         if (user?.accountType != 'Admin') {
             const resp = await getAdminProfileDetail();
             setSupportDesk(resp);
@@ -23,12 +26,17 @@ const SupportDesk = () => {
             const resp = await getAllRegistredStudent();
             setSupportDesk(resp);
             const InstructorList = await getAllRegisterTeacher();
-            setRegisteredTeacher(InstructorList)
+            setRegistered(InstructorList)
         }
         if(user?.accountType=='Student'){
-            const resp = await getEnrolledCourses();
-            setRegisteredTeacher(resp)
+            const resp = await getUserInstructor();
+            setRegistered(resp)
         }
+        if(user?.accountType=='Instructor'){
+            const resp = await getInstructorStudents();
+            setRegistered(resp)
+        }
+        setIsLoading(false)
         return;
     }
 
@@ -41,7 +49,8 @@ const SupportDesk = () => {
     }, [])
 
     return (
-        <div className="text-white w-full py-4">
+        isLoading ? <LoadindScreen/>
+        :<div className="text-white w-full py-4">
             <div className="text-2xl uppercase w-full text-center font-bold">Support desk</div>
             {
                 user?.accountType != 'Admin' &&
@@ -59,7 +68,7 @@ const SupportDesk = () => {
                         }
                         <div className="text-2xl w-full font-bold underline mt-10 text-yellow-50">Registered Teacher</div>
                         {
-                            getRegisteredTeacher?.map((item) => (
+                            getRegistered?.map((item) => (
                                 <UserCard profileImage={item?.image} firstName={item?.firstName} lastName={item?.lastName} email={item?.email} accountType={item?.accountType} onClickFunction={() => goToChat(item?._id)} />
                             ))
                         }
@@ -67,12 +76,15 @@ const SupportDesk = () => {
                 </>
             }
             {
-                user?.accountType == 'Student' &&
+                (user?.accountType == 'Student' || user?.accountType == 'Instructor') &&
                 <>
                     <div className=" flex flex-col mt-10 gap-4">
-                        <div className="text-2xl w-full font-bold underline mt-10 text-yellow-50">Your Instructor</div>
+                        <div className="text-2xl w-full font-bold underline mt-10 text-yellow-50">
+                            {user?.accountType == 'Student' && 'Your Instructor'}
+                            {user?.accountType == 'Instructor' && 'Your Students'}
+                        </div>
                         {
-                            getRegisteredTeacher?.map((item) => (
+                            getRegistered?.map((item) => (
                                 <UserCard profileImage={item?.image} firstName={item?.firstName} lastName={item?.lastName} email={item?.email} accountType={item?.accountType} onClickFunction={() => goToChat(item?._id)} />
                             ))
                         }

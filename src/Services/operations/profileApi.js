@@ -39,18 +39,49 @@ export  async function getEnrolledCourses(){
 }
 
 export async function getUserDetailById(userId) {
-    
     const toastId = toast.loading('Fetching user details');
     let result;
     try {
         const response = await apiConnector('GET',profileEndpoints.GET_USERDETAILS_BY_ID_API,null,null,{userId});
-        result = response?.data?.data
         if(!response.data.success){
             throw new Error(response.data.message);
         }
+        result = response?.data?.data
     } catch (error) {
         toast.error("Unable to fetch user profile")
     }
     toast.dismiss(toastId)
+    return result;
+}
+
+export async function getUserInstructor(){
+    const toastId = toast.loading('fetching user instructor');
+    let result;
+    try {
+        const response = await apiConnector('GET',profileEndpoints.USER_INSTRUCTOR);
+        if(!response.data.success){
+            throw new Error(response.data.message);
+        }
+        result = response?.data?.data
+    } catch (error) {
+        toast.error("Unable to fetch user instructor");
+    }
+    toast.dismiss(toastId)
+    return result;
+}
+
+export async function getInstructorStudents() {
+    const toastId = toast.loading('Fetching instructor student');
+    let result;
+    try {
+        const response = await apiConnector('GET',profileEndpoints.INSTRUCTOR_ENROLLED_STUDENT);
+        if(!response.data.success){
+            throw new Error(response.data.message);
+        }
+        result = response?.data?.data;
+    } catch (error) {
+        toast.error("Unable to fetch Instructor students");
+    }
+    toast.dismiss(toastId);
     return result;
 }

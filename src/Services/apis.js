@@ -15,7 +15,9 @@ export const settingsEndpoints = {
 export const profileEndpoints = {
     UPDATEDISPLAYPICTURE_API : BASE_URL +"/profile/updateDisplayPicture",
     GET_ENROLLED_COURSES_API : BASE_URL +"/profile/getEnrolledCourses",
-    GET_USERDETAILS_BY_ID_API : BASE_URL+"/profile/getUserDetailById"
+    GET_USERDETAILS_BY_ID_API : BASE_URL+"/profile/getUserDetailById",
+    USER_INSTRUCTOR: BASE_URL + "/course/userInstructor",
+    INSTRUCTOR_ENROLLED_STUDENT: BASE_URL+"/course/getEnrolledStudents"
 }
 
 // CONTACT-US API

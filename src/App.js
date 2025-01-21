@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation, useParams } from 'react-router-dom'
 import Home from './Pages/Home'
 import Navbar from './components/common/Navbar'
 import Signup from './Pages/Signup'
@@ -26,7 +26,7 @@ import Message from './components/core/Chat/Message'
 import { getToken,onMessage } from 'firebase/messaging'
 import { messaging } from './Services/firebase/firebase'
 import toast from 'react-hot-toast'
-
+const logoUrl = 'https://res.cloudinary.com/djkivlxss/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1737476485/rzp_logo_gkzv4q.png';
 
 const App = () => {
   const { user } = useSelector((store) => store.profile)
@@ -48,17 +48,15 @@ const App = () => {
     }
   }
   
-  
-  onMessage(messaging, (payload) => {
+  const location = useLocation();  
+  !(location.pathname.includes('/userChat')) && onMessage(messaging, (payload) => {
     if (payload.notification) {
-      const { title, body, image } = payload.notification;
+      const { title, body} = payload.notification;
       const notificationOptions = {
-        body: body || "You have a new notification.",
-        icon: image || "/default-icon.png",
+        body: body || "You have a new Message.",
+        icon: logoUrl,
       };
       new Notification(title || "Notification", notificationOptions);
-    } else {
-      console.warn("Payload does not contain notification data:", payload);
     }
   });
   

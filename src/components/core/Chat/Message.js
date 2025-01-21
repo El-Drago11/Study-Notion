@@ -30,7 +30,9 @@ const Message = () => {
         socket.emit('send-message',
             {
                 senderId: user?._id, 
-                recieverId: params.userId, 
+                senderName: user?.firstName,
+                recieverId: params.userId,
+                recieverName: getRecieverData?.firstName, 
                 message: messageData
             }
         )

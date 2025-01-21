@@ -38,7 +38,7 @@ const initializeTheSocket = (server) => {
             socket.join(roomId)
         });
 
-        socket.on("send-message",async({senderId,recieverId,message})=>{
+        socket.on("send-message",async({senderId,senderName,recieverId,recieverName,message})=>{
             //step1: Get the roomId
             const roomId = [senderId,recieverId].sort().join('_').trim();
             //Step2: Send the message to the reciever 
@@ -46,9 +46,8 @@ const initializeTheSocket = (server) => {
             //Step3:  Save the Message to the Database
             await SaveMessageToDB(senderId,recieverId,message)
             //step4: Send notification using firebase
-            await firebasePushNotification(recieverId)
+            await firebasePushNotification(senderId,senderName,recieverId,message)
         })
-
         socket.on("disconnect",()=>{})
     });
 }

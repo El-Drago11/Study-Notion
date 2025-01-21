@@ -23,37 +23,45 @@ import Catalog from './Pages/Catalog'
 import CourseDetails from './Pages/CourseDetails'
 import SupportDesk from './Pages/SupportDesk'
 import Message from './components/core/Chat/Message'
-import { Alert } from '@mui/material'
 import { getToken,onMessage } from 'firebase/messaging'
 import { messaging } from './Services/firebase/firebase'
 import toast from 'react-hot-toast'
 
+
 const App = () => {
   const { user } = useSelector((store) => store.profile)
 
-  async function notificationPermission(){
-    const permission = await Notification.requestPermission();
-    if(permission==="granted"){
-      const firebaseToken = await getToken(messaging,{vapidKey:'BIJXCq7TUghYvYv3zEyw6Y0S43ibJepPk4IgtBaaWhl4MTCj9mmzAt-kyymNYLDCbGJ2-gJQZPd6PmJ7D_gMycg'});
-      console.log("Firebase token : ",firebaseToken)
-    }else if(permission==="denied"){
-      Alert("Yoy will not get any notification")
+  async function notificationPermission() {
+    try {
+      const permission = await Notification.requestPermission();
+      if (permission === "granted") {
+        const firebaseToken = await getToken(messaging, {
+          vapidKey: process.env.REACT_APP_FIREBASE_NOTIFICATION_KEY,
+        });
+        localStorage.setItem('deviceToken', firebaseToken);
+      } else if (permission === "denied") {
+        toast.error("Notifications are disabled. Please enable notifications for better experience.");
+      }
+    } catch (error) {
+      console.error("Error requesting notification permission or fetching token:", error);
+      toast.error("Failed to enable notifications.");
     }
   }
   
-onMessage(messaging, (payload) => {
-  console.log('Message received in foreground: ', payload);
-  // Display a notification if needed
-  const notificationTitle = payload.notification.title;
-  const notificationOptions = {
-      body: payload.notification.body,
-      icon: payload.notification.image
-  };
-
-  // Example: Show a custom notification
-  new Notification(notificationTitle, notificationOptions);
-  toast.success(payload.notification.body)
-});
+  
+  onMessage(messaging, (payload) => {
+    if (payload.notification) {
+      const { title, body, image } = payload.notification;
+      const notificationOptions = {
+        body: body || "You have a new notification.",
+        icon: image || "/default-icon.png",
+      };
+      new Notification(title || "Notification", notificationOptions);
+    } else {
+      console.warn("Payload does not contain notification data:", payload);
+    }
+  });
+  
 
   useEffect(()=>{
     notificationPermission();

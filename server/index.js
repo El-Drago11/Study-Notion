@@ -23,6 +23,16 @@ const initializeTheSocket = require('./utils/socket');
 cloudinaryConnect(); //-->cloudiary connection
 require('./config/database').connect()//--> connection to db
 
+//firebase push notification setup
+var admin = require("firebase-admin");
+
+var serviceAccount = require("./config/studynotion-4b060-firebase-adminsdk-fbsvc-8554fd27fb.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+
+
 // middelware
 app.use(express.json())
 app.use(cookieParser())

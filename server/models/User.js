@@ -68,6 +68,9 @@ const userSchema = new mongoose.Schema(
 				ref: "courseProgress",
 			},
 		],
+		deviceToken:{
+			type:String,
+		}
 
 		// Add timestamps for when the document is created and last modified
 	},

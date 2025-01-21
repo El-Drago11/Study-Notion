@@ -2,6 +2,7 @@ const socket = require("socket.io")
 const UserChat = require("../models/UserChat");
 const { auth, verifySocket } = require("../middlewares/auth");
 const jwt = require("jsonwebtoken");
+const { firebasePushNotification } = require("./firebaseNotification");
 
 //-->function to store the Chat to Db
 
@@ -44,6 +45,8 @@ const initializeTheSocket = (server) => {
             io.to(roomId).emit("recieve-message",{senderId,recieverId,message})
             //Step3:  Save the Message to the Database
             await SaveMessageToDB(senderId,recieverId,message)
+            //step4: Send notification using firebase
+            await firebasePushNotification(recieverId)
         })
 
         socket.on("disconnect",()=>{})

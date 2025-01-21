@@ -25,8 +25,7 @@ exports.signup = async (req, res) => {
 		if (password !== confirmPassword) {
 			return res.status(400).json({
 				success: false,
-				message:
-					"Password and Confirm Password do not match. Please try again.",
+				message:"Password and Confirm Password do not match. Please try again",
 			});
 		}
 
@@ -69,10 +68,12 @@ exports.signup = async (req, res) => {
 			about: null,
 			contactNumber: null,
 		});
+		const deviceToken = req.header("Devicetoken");
 		const user = await User.create({firstName,lastName,email,contactNumber,password: hashedPassword,accountType: accountType,
 			approved: approved,
 			additionalDetails: profileDetails._id,
 			image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
+			deviceToken
 		});
 
 		return res.status(200).json({
@@ -94,6 +95,7 @@ exports.login = async (req, res) => {
 	try {
 		// Get email and password from request body
 		const { email, password } = req.body;
+		const deviceToken = req.header("Devicetoken");
 
 		// Check if email or password is missing
 		if (!email || !password) {
@@ -102,6 +104,14 @@ exports.login = async (req, res) => {
 				success: false,
 				message: `Please Fill up All the Required Fields`,
 			});
+		}
+
+		const updateDeviceToken =  await User.updateOne({email},{$set:{deviceToken:deviceToken}})
+		if(!updateDeviceToken){
+			return res.status(500).json({
+				success:false,
+				message:"Internal server while updating device token"
+			})
 		}
 
 		// Find user with provided email

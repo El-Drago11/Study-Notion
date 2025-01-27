@@ -10,10 +10,10 @@ import LoadindScreen from "../../common/LoaderScreen";
 const Message = () => {
     const params = useParams();
     const messageRef = useRef();
-    const userToken = JSON.parse(localStorage.getItem('token')) || null;
-    const socket = createSocketConnection(userToken);
+    const socket = createSocketConnection();
     const [getAllMessage,setAllMessage] = useState([]);
     const [isLoading,setIsLoading] = useState(false);
+    const chatBoxRef = useRef(null);
 
     const { user } = useSelector((store) => store.profile)
 
@@ -80,6 +80,33 @@ const Message = () => {
         }
     }, [params.userId,getRecieverData])
 
+    useEffect(() => {
+        const chatBox = chatBoxRef.current;
+    
+        if (chatBox) {
+          const observer = new MutationObserver((mutations) => {
+            const hasNewMessages = mutations.some(
+              (mutation) =>
+                mutation.type === "childList" || mutation.type === "subtree"
+            );
+    
+            if (hasNewMessages) {
+              chatBox.scroll({
+                top: chatBox.scrollHeight,
+                behavior: "smooth",
+              });
+            }
+          });
+          observer.observe(chatBox, {
+            childList: true,
+            subtree: true,
+          });
+          return () => {
+            observer.disconnect();
+          };
+        }
+      }, []);
+
     return (
         <div className="text-white bg-richblack-500 w-full flex flex-col h-full">
             {isLoading && <LoadindScreen/>}
@@ -93,7 +120,7 @@ const Message = () => {
                 </div>
             </div>
             {/* Get message */}
-            <div className="h-[80%] bg-white overflow-y-auto relative flex flex-col gap-7 py-5 px-5">
+            <div className="h-[80%] bg-white overflow-y-auto relative flex flex-col gap-7 py-5 px-5" ref={chatBoxRef}>
                 {
                     getAllMessage?.map((item)=>(
                         <div className={`bg-richblack-800 text-white font-bold flex gap-2 min-w-fit rounded-md ${item?.senderId==user?._id ? ' place-self-start':' place-self-end'} px-4 py-2`}>

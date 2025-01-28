@@ -3,7 +3,7 @@ import '../../../App.css'
 
 const CoursesCard = ({cardData}) => {
     return(
-        < div className='CardBgShadow flex flex-col text-left bg-richblack-800 p-5 w-[30%] hover:scale-95 transition-x duration-200 text-richblack-5 hover:bg-white hover:text-richblack-900'>
+        < div className='CardBgShadow flex flex-col text-left bg-richblack-800 p-5 w-full md:w-[30%] hover:scale-95 text-richblack-5 hover:bg-white hover:text-richblack-900'>
             <div className='text-2xl mt-5'>
                 {cardData.heading}
             </div>

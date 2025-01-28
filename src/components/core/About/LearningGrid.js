@@ -46,17 +46,17 @@ const LearningGridArray = [
 
 const LearningGrid = () => {
   return (
-    <div className='flex flex-col'>
-        <div className='grid grid-cols-1 md:grid-cols-4 mx-auto  mb-10 mt-10 w-11/12 max-w-maxContent'>
+    <div className='flex flex-col w-full'>
+        <div className='grid grid-cols-1 lg:grid-cols-4 mx-auto  mb-10 mt-10 w-11/12 max-w-maxContent'>
             {
                 LearningGridArray.map((card,index)=>(
                     <div className={`
                         ${index === 0 && "lg:col-span-2 sm:h-fit"} 
                         ${card.order%2===1 ? " bg-richblack-800" : "bg-richblack-600"}
-                        ${card.order === 3 && "lg: col-start-2"}
+                        ${card.order === 3 && "lg:col-start-2"}
                         p-7]`} key={index}>
                         {card?.order < 0 ? 
-                            <div className='flex flex-col p-4'>
+                            <div className='flex flex-col p-4 mx-auto'>
                                 <h1 className="text-4xl text-richblack-5">{card?.heading}</h1>
                                 <h1 className='text-4xl text-richblack-5'><Highlight text={card?.highlightText}/></h1>
                                 <p className=' text-richblack-300 mt-4'>

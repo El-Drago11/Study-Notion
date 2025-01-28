@@ -8,9 +8,9 @@ import "../../../App.css"
 const Instructor = () => {
   return (
     <div className='w-11/12 max-w-maxContent items-center justify-center mx-auto text-white p-11'>
-        <div className='flex flex-row items-center gap-32'>
+        <div className='flex flex-col lg:flex-row items-center gap-32'>
             <img src={instructor_img} alt='instructor' className='StaticBgShadow'/>
-            <div className='flex flex-col text-start w-[50%]'>
+            <div className='flex flex-col text-start w-11/12 lg:w-[50%]'>
                 <div>
                     <div className='text-3xl'><span>Become an</span><br/><Highlight text={"instructor"}/></div>
                     <div className='text-sm text-pure-greys-300 mt-4'>Instructors from around the world teach millions of students on StudyNotion. We provide the tools and skills to teach what you love.Start Teaching Today

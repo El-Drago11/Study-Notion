@@ -70,9 +70,9 @@ const Footer = () => {
       </div>
 
       {/* waterMark */}
-      <div className='flex flex-row justify-between'>
+      <div className='flex flex-row flex-wrap justify-evenly lg:justify-between'>
         <div>
-            <ul className='flex flex-row text-richblack-300'>
+            <ul className='flex flex-row text-richblack-300 mb-7 lg:mb-0'>
               <li className=' border-r-2 border-r-richblack-400 px-4'>Privacy Policy</li>
               <li className=' border-r-2 border-richblack-400 px-4'>Cookie Policy</li>
               <li className='px-4'>Terms</li>

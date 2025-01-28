@@ -35,15 +35,14 @@ const CourseDetails = () => {
   }, [courseId])
 
   return (
-    <div className='container'>
-      <div className='container text-richblack-5  flex justify-evenly p-4'>
+      <div className='w-full text-richblack-5  flex flex-col lg:flex-row justify-evenly p-4'>
         <div className='container'>
-          <h1 className=' text-4xl text-center mt-4 mb-6'>{courseData?.courseName.toUpperCase()}</h1>
-          <figure class="md:flex bg-slate-100 rounded-xl p-8 md:p-0 dark:bg-slate-800 mt-4">
-            <div className='w-[50%]'>
+          <h1 className=' text-4xl text-center mt-4 mb-6 text-yellow-100'>{courseData?.courseName.toUpperCase()}</h1>
+          <figure class="md:flex bg-slate-100 rounded-xl p-2 lg:p-8 md:p-0 dark:bg-slate-800 mt-0 lg:mt-4 border-2 border-white">
+            <div className='w-[50%] mx-auto'>
               <img class="object-cover md:h-[100%] md:rounded-none rounded-full mx-auto" src={courseData?.thumbnail} alt="courseImage" />
             </div>
-            <div class="text-center md:text-left space-y-4 ml-4 p-4">
+            <div class="text-left space-y-4 ml-0 lg:ml-4 p-4">
               <blockquote>
                 <p class="text-lg font-medium">
                   {courseData?.courseDescription}
@@ -54,8 +53,9 @@ const CourseDetails = () => {
                   Achievement :  {courseData?.whatYouWillLearn}
                 </div>
                 <div className="text-slate-700 dark:text-slate-500">
+                  What You Will learn :  
                   {courseData?.tag[0]?.split('+').map((item, index) => (
-                    <button class="rounded-full mr-4" key={index}>{item}</button>
+                    <button class="rounded-full mr-4 text-yellow-100" key={index}>{item}</button>
                   ))}
                 </div>
                 <div className=' text-richblack-5 mt-4'>
@@ -66,8 +66,8 @@ const CourseDetails = () => {
           </figure>
         </div>
         <div className='container mx-auto'>
-          <h1 className=' text-4xl text-center mt-4 mb-6'>INSTRUCTOR PROFILE</h1>
-          <figure class="md:flex bg-slate-100 rounded-xl p-8 md:p-0 dark:bg-slate-800 mt-4 mx-auto w-fit">
+          <h1 className=' text-4xl text-center mt-4 mb-6 text-yellow-100'>INSTRUCTOR PROFILE</h1>
+          <figure class="md:flex bg-slate-100 rounded-xl p-1 lg:p-8 md:p-0 dark:bg-slate-800 mt-4 mx-auto w-fit border-2 border-white">
             <div className='w-auto'>
               <img class="w-24 h-24 rounded-full mx-auto" src={courseData?.instructor?.image} alt="courseImage" height='200' />
             </div>
@@ -77,7 +77,7 @@ const CourseDetails = () => {
                   {courseData?.instructor?.firstName + ' ' + courseData?.instructor?.lastName}
                 </p>
               </blockquote>
-              <figcaption class="text-xl">
+              <figcaption class="text-lg lg:text-xl">
                 <div class="text-sky-500 dark:text-sky-400">
                   Email :  {courseData?.instructor?.email}
                 </div>
@@ -86,10 +86,6 @@ const CourseDetails = () => {
           </figure>
         </div>
       </div>
-      <div className='container mx-auto'>
-        
-      </div>
-    </div>
   )
 }
 

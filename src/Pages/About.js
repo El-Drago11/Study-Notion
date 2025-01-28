@@ -11,20 +11,20 @@ import ContactForm from '../components/core/About/ContactForm'
 
 export const About = () => {
   return (
-    <div className=' mx-auto flex flex-col items-center'>
+    <div className=' w-full mx-auto flex flex-col items-center'>
         <section>
             <div className='text-center flex flex-col mx-auto items-center bg-richblack-800 '>
-                <header className=' text-richblack-25 text-4xl w-[50%] mt-20'>
+                <header className=' text-richblack-25 text-4xl w-11/12 lg:w-[50%] mt-10 lg:mt-20'>
                     <span> Driving Innovation in Online Education for a </span>
                     <Highlight text={"Brighter Future"}/>
                 </header>
-                <p className=' text-richblack-200 w-[50%] mt-5'>
+                <p className=' text-richblack-200 w-11/12 lg:w-[50%] mt-5'>
                     Studynotion is at the forefront of driving innovation in online education. We're passionate about creating a brighter future by offering cutting-edge courses, leveraging emerging technologies, and nurturing a vibrant learning community.
                 </p>
                 <div className=' flex flex-row translate-y-16 gap-7'>
-                    <img src={Banner1} alt='aboutUs image1'/>
-                    <img src={Banner2} alt='aboutUs image2'/>
-                    <img src={Banner3} alt='aboutUs image3'/>
+                    <img src={Banner1} alt='aboutUs image1' className='h-20 lg:h-auto'/>
+                    <img src={Banner2} alt='aboutUs image2' className='h-20 lg:h-auto'/>
+                    <img src={Banner3} alt='aboutUs image3' className='h-20 lg:h-auto'/>
                 </div>
             </div>
         </section>
@@ -38,10 +38,10 @@ export const About = () => {
                 <Vision/>
             </div>
         </section>
-        <section className='md:w-[90%]'>
+        <section className='w-11/12 lg:w-[90%]'>
             <Stats/>
         </section>
-        <section className='gap-5 md-11/12 max-w-maxContent'>
+        <section className='gap-5 w-11/12 max-w-maxContent'>
             <LearningGrid/>
             <ContactForm/>
         </section>

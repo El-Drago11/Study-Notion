@@ -24,17 +24,17 @@ const ExploreMore = () => {
         <div className='text-4xl font-semibold text-center'>Unlock the {<Highlight text={"Power of Code"}/>}</div>
         <div className=' text-lg text-center text-richblack-200 mt-3'>Learn To Build any thing you can imagine</div>
         {/* tab */}
-        <div className='mx-auto items-center flex flex-row mt-11 bg-richblack-800 rounded-full my-auto px-2 py-2'>
+        <div className='mx-auto items-center flex flex-row mt-4 md:mt-11 bg-richblack-800 rounded-full my-auto px-2 py-2'>
                 {tabsName.map((element,index)=>{
                     return(
-                        <div className={`text-sm text-center items-center ${currTab===element ? "bg-richblack-900 text-richblack-5 font font-medium":"text-richblack-200"} rounded-full hover:bg-richblack-700 hover:text-richblack-5 border-r-2 border-richblack-50 px-7 py-1`} key={index} onClick={()=>setMyCards(element)}>
+                        <div className={`text-sm text-center items-center ${currTab===element ? "bg-richblack-900 text-richblack-5 font font-medium":"text-richblack-200"} rounded-full hover:bg-richblack-700 hover:text-richblack-5 border-r-2 border-richblack-50 px-auto md:px-7 py-1`} key={index} onClick={()=>setMyCards(element)}>
                             {element}
                         </div>
                     )
                 })}
         </div>
         {/* cardComponent */}
-        <div className='justify-between mx-auto items-center flex flex-row gap-11 w-full translate-y-24'>
+        <div className='flex flex-col md:flex-row gap-10 w-full translate-y-24 overflow-x-auto'>
                 {courses.map((element,index)=>{
                     return(
                         <CoursesCard key={index} cardData={element}/>

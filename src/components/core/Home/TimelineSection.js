@@ -32,12 +32,12 @@ const Timeline = [
 const TimelineSection = () => {
   return (
     <div>
-        <div className='flex flex-row gap-15 items-center'>
-            <div className='w-[45%] flex flex-col gap-11'> 
+        <div className='flex flex-col lg:flex-row gap-15 items-center'>
+            <div className='w-full lg:w-[45%] flex flex-col gap-11 mb-10'> 
                 {
                     Timeline.map((data,index)=>{
                         return(
-                            <div className='flex flex-row mx-auto items-start' key={index}>
+                            <div className='flex flex-row mx-auto items-start w-11/12' key={index}>
                                 <div className='w-[20%] mx-auto'>
                                     <img src={data.logo}/>
                                 </div>
@@ -52,7 +52,7 @@ const TimelineSection = () => {
             </div>
             <div className='relative shadow-blue-200'>
                 <img src={timelineImage} alt="TimelineImage" className='shadow-white object-cover h-fit'/>
-                <div className='absolute bg-caribbeangreen-700 flex flex-row text-white uppercase p-5 translate-x-[20%] -translate-y-6'>
+                <div className='absolute bg-caribbeangreen-700 flex flex-row text-white uppercase p-5 translate-x-0 lg:translate-x-[20%] -translate-y-6'>
                     <div className='flex flex-row gap-5 items-center border-r-2 border-caribbeangreen-100 px-7'>
                         <div>
                             <p className='text-3xl font-bold'>10</p>

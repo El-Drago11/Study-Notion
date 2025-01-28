@@ -37,7 +37,7 @@ const ContactForm = () => {
     }
   },[reset,isSubmitSuccessful])
   return (
-    <div className='mx-auto flex flex-col w-[50%]  mt-10  mb-10'>
+    <div className='mx-auto flex flex-col w-11/12 lg:w-[50%] mt-10 mb-10'>
         <div className='text-center'>
             <h1 className='text-3xl text-richblack-5'>Get in Touch</h1>
             <p className='text-sm text-richblack-200'>We'd love to here for you, Please fill the form</p>

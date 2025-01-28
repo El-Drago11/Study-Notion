@@ -14,7 +14,7 @@ const MyProfile = () => {
             <h1 className='text-richblack-5 text-4xl'>My Profile</h1>
 
             <div className='grid md:grid-cols-2  sm:grid-cols-1 mt-10 w-11/12 gap-4 bg-richblack-800 rounded-md p-6'>
-                <div className='flex md:flex-row items-center gap-7 sm:flex-col'>
+                <div className='flex md:flex-row items-center gap-7 flex-col'>
                     {imgErr || !user?.image ?  (<FaUser className='h-10 w-10 text-white' />)
                      : (<img src={user?.image} alt={user?.firstName} className='rounded-full h-16'/>) }
                     <div className='flex flex-col'>
@@ -22,7 +22,7 @@ const MyProfile = () => {
                         <p className=' text-richblack-300'>{user?.email}</p>
                     </div>
                 </div>
-                <div className='flex md:justify-end sm:justify-start h-auto items-center'>
+                <div className='flex justify-end h-auto items-center'>
                     <IconBtn text="Edit" onclick={()=>navigate("/dashboard/settings")}></IconBtn>
                 </div>
             </div>

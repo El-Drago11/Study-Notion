@@ -12,6 +12,7 @@ const Sidebar = () => {
 
     const {user,loading:profileLoading} = useSelector((store)=>store.profile)
     const {loading:authLoading} =  useSelector((store)=>store.auth)
+    
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const[confirmationModal,setConfirmationModal] = useState(null);
@@ -23,7 +24,7 @@ const Sidebar = () => {
     }
 
   return (
-    <div className='flex flex-col w-[20%] border-r-[1px] border-r-richblack-600 h-[calc[100vh-3.5rem]] bg-richblack-700 py-10'>
+    <div className='flex flex-col w-full border-r-[1px] border-r-richblack-600 h-full bg-richblack-700 py-10'>
         <div className=' flex flex-col border-b-2 border-b-richblack-5 pb-10'>
             {
                 sidebarLinks.map((element)=>{
@@ -43,8 +44,8 @@ const Sidebar = () => {
                 btn2Text:"Cancel",
                 btn1Handler:()=>dispatch(userLogout(dispatch,navigate)),
                 btn2Handler:()=>setConfirmationModal(null)
-            })} className=' text-sm font-medium text-richblack-5 items-center mx-4'>
-                <div className='flex flex-row items-start md:gap-x-4 sm:gap-x-0'>
+            })} className=' text-sm font-medium text-richblack-5 items-center'>
+                <div className='flex flex-row items-start gap-x-2 md:px-4'>
                     <VscSignOut className=' text-lg'/>
                     <span>Logout</span>
                 </div>

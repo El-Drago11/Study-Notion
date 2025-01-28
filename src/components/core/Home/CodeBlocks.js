@@ -4,11 +4,11 @@ import { TypeAnimation } from 'react-type-animation'
 
 const CodeBlocks = ({position,heading ,subheading,ctabtn1,ctabtn2,codeBlock,backgroungGradient,codeColor }) => {
   return (
-    <div className={`flex ${position} my-20 justify-between gap-40`}>
+    <div className={`flex ${position} my-10 md:my-20 justify-evenly md:justify-between gap-10 lg:gap-40`}>
         {/*  */}
-        <div className='w-[50%] flex flex-col my-auto'>
+        <div className='w-full md:w-[50%] flex flex-col my-auto'>
             <div className='text-4xl'>{heading}</div>
-            <div className='text-richblack-300 font-bold my-4 w-[70%]'>
+            <div className='text-richblack-300 font-bold my-4 w-full md:w-[70%]'>
                 {subheading}
             </div>
             <div className='flex flex-row gap-14'>
@@ -16,7 +16,7 @@ const CodeBlocks = ({position,heading ,subheading,ctabtn1,ctabtn2,codeBlock,back
                 <CTAbuuton text={ctabtn2.text} active={ctabtn2.active} linkto={ctabtn2.linkto}/>
             </div>
         </div>
-        <div className={`flex flex-row w-[50%] text-lg border-solid border-2 p-5 rounded-xl bg-richblack-800`}>
+        <div className={`flex flex-row w-full md:w-[50%] text-lg border-solid border-2 p-5 rounded-xl bg-richblack-800`}>
             {/*TODO : bg-gradients */}
             <div className="text-center flex flex-col w-[10%] text-richblack-400 font-inter font-bold">
                 <p>1</p>

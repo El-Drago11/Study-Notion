@@ -40,14 +40,14 @@ const VerifyEmail = () => {
             (
                 <div className='text-richblack-5 flex flex-col w-screen max-w-maxContent justify-center items-center h-screen mx-auto gap-7'>
                     <h1 className='text-3xl'>Verify Email</h1>
-                    <p>A verification code has bee sent to your email Please enter the OTP</p>
+                    <p className='text-center'>A verification code has bee sent to your email Please enter the OTP</p>
                     <form onSubmit={handleOnSubmit}>   
                         <OtpInput
                             value={otp}
                             onChange={setOtp}
                             numInputs={6}
                             renderSeparator={<span>-</span>}
-                            renderInput={(props) => <input {...props}  className=' bg-richblack-700 m-4 text-richblack-5 h-11'/>}
+                            renderInput={(props) => <input {...props}  className=' bg-richblack-700 m-2 lg:m-4 !text-richblack-5 h-11 !w-10 !font-bold'/>}
                         />
                         <button type='submit' className='bg-yellow-50 text-black w-full mt-4 py-2 px-4 rounded-full'>Verify Email</button>
                         <div className='flex flex-row justify-between'>

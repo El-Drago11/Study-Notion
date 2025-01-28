@@ -26,11 +26,11 @@ const Login = () => {
   }
 
   return (
-    <div className='flex flex-row items-center w-11/12 justify-center max-w-maxContent gap-20 h-screen mx-auto'>
-      <div className='flex flex-col p-4 gap-4 w-[40%]'>
+    <div className='flex flex-col-reverse lg:flex-row items-center w-11/12 justify-center max-w-maxContent gap-4 lg:gap-20 min-h-screen mx-auto'>
+      <div className='flex flex-col p-4 gap-4 w-11/12 lg:w-[40%]'>
         <div className='text-4xl text-richblack-5'>Welcome Back</div>
         <div className=' text-md text-richblack-300'><span>Build skills for today, tomorrow, and beyond.</span><span className=' text-blue-300'>Education to future-proof your career.</span></div>
-        <div className=' bg-richblack-600 p-1 rounded-full w-fit'>
+        {/* <div className=' bg-richblack-600 p-1 rounded-full w-fit'>
           <ul className='flex flex-row gap-4 text-richblack-100'>
             {tabsName?.map((element,index)=>(
                 <li className={`hover:bg-richblack-700 hover:text-richblack-25 rounded-full px-2 ${element===accountType ? "bg-richblack-900":""}`} key={index} onClick={()=>{whoIsLogin(element)}}>
@@ -38,7 +38,7 @@ const Login = () => {
                 </li>
             ))}
           </ul>
-        </div>
+        </div> */}
         <form onSubmit={userLogin}>
           <label>
             <p className=' text-richblack-50'>Email Address</p>
@@ -52,8 +52,8 @@ const Login = () => {
           <button type='submit' className='bg-yellow-50 text-black w-full mt-10 py-2 px-4 rounded-full'>SignIn</button>
         </form>
       </div>
-      <div className='loginPageImage w-[40%]'>
-        <img src={loginImage} className='w-fit -translate-y-5 -translate-x-4'/>
+      <div className='loginPageImage w-11/12 lg:w-[40%]'>
+        <img src={loginImage} className='w-fit translate-y-5 lg:-translate-y-5 -translate-x-4 h-15 lg:h-auto'/>
       </div>
     </div>
   )

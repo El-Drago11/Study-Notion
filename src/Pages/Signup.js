@@ -37,8 +37,8 @@ const Signup = () => {
   }
 
   return (
-    <div className='flex flex-row items-center w-11/12 justify-center max-w-maxContent gap-20 h-screen mx-auto'>
-      <div className='flex flex-col p-4 gap-4 w-[40%]'>
+    <div className='flex flex-col-reverse lg:flex-row items-center w-11/12 justify-center max-w-maxContent gap-7 lg:gap-20 min-h-screen mx-auto'>
+      <div className='flex flex-col p-4 gap-4 w-11/12 lg:w-[40%]'>
         <div className='text-4xl text-richblack-5'>Join the millions learning to code with StudyNotion for free</div>
         <div className=' text-md text-richblack-300'><span>Build skills for today, tomorrow, and beyond. </span><span className=' text-blue-300'>Education to future-proof your career.</span></div>
         <div className=' bg-richblack-600 p-1 rounded-full w-fit'>
@@ -51,7 +51,7 @@ const Signup = () => {
           </ul>
         </div>
         <form onSubmit={userDataSubmission}>
-          <div className='flex flex-row gap-7 mt-4'>
+          <div className='flex flex-row justify-between mt-4'>
             <label>
               <p className=' text-richblack-50'>First Name</p>
               <input required type='First Name' name='firstName' value={firstName} onChange={(e)=>setFirstName(e.target.value)} placeholder='First Name' className='p-2 bg-richblack-700 w-full' id="firstName"/>
@@ -69,7 +69,7 @@ const Signup = () => {
               <p className=' text-richblack-50 mt-4'>Phone Number</p>
               <input required type='phone number' name='phoneNumber' value={contactNumber} onChange={(e)=>setContactNumber(e.target.value)} placeholder='+91-123456789' className='p-2 bg-richblack-700 w-full' id="phoneNumber"/>
           </label>
-          <div className='flex flex-row gap-7 mt-4'>
+          <div className='flex flex-row justify-between mt-4'>
             <label>
               <p className='text-richblack-50'>Password</p>
               <input required type='password' name='password' value={password} onChange={(e)=>setPassword(e.target.value)} placeholder='Enter Password' className='p-2 bg-richblack-700 w-full' id="userPassword"/>

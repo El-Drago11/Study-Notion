@@ -16,12 +16,12 @@ const ForgotPassword = () => {
     }
 
   return (
-    <div className='w-11/12 flex flex-row justify-center items-center h-screen'>
+    <div className='w-full flex flex-row justify-center items-center h-screen'>
         {
             loading ? (
                 <div className='text-4xl text-richblack-5'>Loading.....</div>
             ):(
-                <div className='w-[25%]'>
+                <div className='w-11/12 lg:w-[25%]'>
                     <h1 className=' text-richblack-5 text-3xl mb-4'>{!emailSent?"Reset Your Password" : "Check Your Email"}</h1>
                     <p className='text-richblack-100 mb-4'>
                         {!emailSent?"Have no fear. We’ll email you instructions to reset your password. If you dont have access to your email we can try account recovery":`Check email We have sent the reset email to ${email}`}

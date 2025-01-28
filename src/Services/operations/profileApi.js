@@ -1,6 +1,6 @@
 import toast from "react-hot-toast"
 import { apiConnector } from "../apiConnector"
-import { profileEndpoints } from "../apis"
+import { profileEndpoints, settingsEndpoints } from "../apis"
 
 export function updateProfilePic(formData,token){
     return async()=>{
@@ -84,4 +84,22 @@ export async function getInstructorStudents() {
     }
     toast.dismiss(toastId);
     return result;
+}
+
+export async function changeUserPassword(oldPassword,newPassword,confirmPassword){
+    const toastId = toast.loading("Chnaging user Passsword....");
+    try {
+        const response = await apiConnector("POST",settingsEndpoints.CHANGEPASSWORD_API,{oldPassword,newPassword,confirmNewPassword:confirmPassword});
+        if(!response.data.success){
+            throw new Error(response.data.message);
+        }else{
+            toast.success("Password changed successfully")
+        }
+        
+    } catch (error) {
+        console.log("Error : ",error)
+        toast.error(error.response.data.message)
+    }
+    toast.dismiss(toastId);
+    return
 }

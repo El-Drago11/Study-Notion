@@ -32,13 +32,13 @@ const UpdatePassword = () => {
                 )
             :
             (
-                <div className='text-richblack-5 flex flex-col w-screen justify-center items-center h-screen'>
+                <div className='text-richblack-5 flex flex-col w-11/12 lg:w-screen justify-center items-center h-screen mx-auto'>
                     <h1 className='text-3xl'>{!emailSent ? "Choose a new Password" : "Reset Successfully"}</h1>
                     <p>{!emailSent ? "Almost done. Enter your new password and YOu are set to go....":`we have  reset your account Password`}</p>
                     <form onSubmit={handleOnSubmit}>
                         { 
                             !emailSent && (
-                            <div className='w-[25rem]'>
+                            <div className='w-full md:w-[25rem]'>
                                 <label className='flex flex-col text-richblack-25 gap-2 mb-7 mt-4'>
                                     <p>New Password</p>
                                     <div className='flex flex-row items-center'>

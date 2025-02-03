@@ -82,12 +82,7 @@ const Settings = () => {
         <button className=' rounded-md text-black bg-yellow-100 py-2 px-3 mt-4' onClick={() => changePassword()}>Change Password</button>
       </div>
 
-      <DeleteAccount />
-
-      <div className=' flex flex-row justify-end gap-4  mb-10'>
-        <button className=' rounded-md text-richblack-25 bg-richblack-400 py-2 px-3' onClick={() => { navigate('/') }}>Cancel</button>
-        <IconBtn text="SAVE" />
-      </div>
+      {/* <DeleteAccount /> */}
 
     </div>
   )

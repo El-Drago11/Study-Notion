@@ -103,3 +103,23 @@ export async function changeUserPassword(oldPassword,newPassword,confirmPassword
     toast.dismiss(toastId);
     return
 }
+
+export async function updateProfileDetails(firstName,dateOfBirth,contactNumber,lastName,gender,about){
+    const toastId = toast.loading("Changing user Details....");
+    let updatedDetails = null
+    try {
+        const response = await apiConnector("PUT",profileEndpoints.UPDATE_USER_PROFILE,{firstName,dateOfBirth,contactNumber,lastName,gender,about});
+        if(!response.data.success){
+            throw new Error(response.data.message);
+        }else{
+            updatedDetails = response;
+            toast.success("Profile updated successfully");
+        }
+        
+    } catch (error) {
+        console.log("Error : ",error)
+        toast.error(error.response.data.message)
+    }
+    toast.dismiss(toastId);
+    return updatedDetails;
+}

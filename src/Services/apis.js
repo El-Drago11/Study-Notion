@@ -18,7 +18,8 @@ export const profileEndpoints = {
     GET_ENROLLED_COURSES_API : BASE_URL +"/profile/getEnrolledCourses",
     GET_USERDETAILS_BY_ID_API : BASE_URL+"/profile/getUserDetailById",
     USER_INSTRUCTOR: BASE_URL + "/course/userInstructor",
-    INSTRUCTOR_ENROLLED_STUDENT: BASE_URL+"/course/getEnrolledStudents"
+    INSTRUCTOR_ENROLLED_STUDENT: BASE_URL+"/course/getEnrolledStudents",
+    UPDATE_USER_PROFILE : BASE_URL+"/profile/updateProfile"
 }
 
 // CONTACT-US API

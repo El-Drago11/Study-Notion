@@ -87,7 +87,7 @@ const Navbar = () => {
 
                     {/* login/signup/dashboard */}
                     <div className='flex gap-x-2 md:gap-x-4 items-center'>
-                        {
+                        {/* {
                             user && user?.accountType != "Instructor" && (
                                 <Link to="/dashboard/cart" className='relative text-richblack-5 text-xl md:text-3xl'>
                                     <AiOutlineShoppingCart />
@@ -97,7 +97,7 @@ const Navbar = () => {
                                     }
                                 </Link>
                             )
-                        }
+                        } */}
 
                         {/* if Token is null than user is not LoggedIn  than show login and signUp button*/}
                         {

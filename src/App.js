@@ -30,6 +30,7 @@ import LoadindScreen from './components/common/LoaderScreen'
 import Teachers from './components/core/Dashboard/Admin/Teachers'
 import Students from './components/core/Dashboard/Admin/Students'
 import SalesGraph from './components/core/Dashboard/Admin/SalesGraph'
+import YourStudents from './components/core/Dashboard/Instructor/YourStudents'
 const logoUrl = 'https://res.cloudinary.com/djkivlxss/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1737476485/rzp_logo_gkzv4q.png';
 
 const App = () => {
@@ -99,6 +100,7 @@ const App = () => {
             <Route path='dashboard/add-course' element={<AddCourses />} />
             <Route path='dashboard/my-courses' element={<MyCourses />} />
             <Route path='dashboard/edit-course/:courseId' element={<EditCourse />} />
+            <Route path='dashboard/instructor' element={<YourStudents />} />
           </>)}
           {user?.accountType === "Admin" && (<>
             <Route path='dashboard/teachers' element={<Teachers />} />

@@ -1,18 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { set, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
 import { addCourseDetails, editCourseDetails, fetchCourseCategories } from '../../../../../Services/operations/courseDetailsAPI';
 import { setCourse, setStep } from '../../../../../Store/courseReducer';
 import { COURSE_STATUS } from '../../../../../utils/constants';
 import Upload from '../../../../common/Upload';
 import toast from 'react-hot-toast';
+import { setLoginLoading } from '../../../../../Store/profileReducer';
 
 const CourseInfoForm = () => {
     const {register,handleSubmit,reset,formState:{errors,isSubmitSuccessful},setValue,getValues} = useForm();
     const dispatch = useDispatch();
     const {course,editCourse} = useSelector((store)=>store.course)
     const{token} = useSelector((store)=>store.auth)
-    const [loading, setLoading] = useState(false)
     const [courseCategories, setCourseCategories] = useState([]);
 
 
@@ -34,6 +34,7 @@ const CourseInfoForm = () => {
             formData.append("thumbnailImage", data.courseImage)
             formData.append("status", COURSE_STATUS.DRAFT)
             let result =null;
+            dispatch(setLoginLoading(true))
             if(editCourse){
                 formData.append("courseId",course._id);
                 result = await editCourseDetails(formData,token)
@@ -48,16 +49,17 @@ const CourseInfoForm = () => {
         } catch (error) {
             throw new Error(error)
         }
+        dispatch(setLoginLoading(false))
     }
 
     //--->fecth categories from DB
     const getCategories = async()=>{
-        setLoading(true)
+        dispatch(setLoginLoading(true))
         const categories = await fetchCourseCategories();
         if(categories.length>0){
             setCourseCategories(categories);
         }
-        setLoading(false);
+        dispatch(setLoginLoading(false));
     }
 
     useEffect(()=>{

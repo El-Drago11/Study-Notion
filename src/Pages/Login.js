@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import '../App.css'
 import loginImage from '../assets/Images/login.webp'
@@ -8,6 +8,8 @@ import { login } from '../Services/operations/authApi';
 const tabsName = ["Student","Instructor"]
 
 const Login = () => {
+
+  const userToken = localStorage.getItem('token')
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,6 +26,12 @@ const Login = () => {
     e.preventDefault();
     dispatch(login(email,password,navigate))
   }
+
+  useEffect(()=>{
+    if(userToken){
+      navigate('/dashboard/my-profile')
+    }
+  },[userToken])
 
   return (
     <div className='flex flex-col-reverse lg:flex-row items-center w-11/12 justify-center max-w-maxContent gap-4 lg:gap-20 min-h-screen mx-auto'>

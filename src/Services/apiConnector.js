@@ -19,7 +19,9 @@ export const apiConnector = async (method, url, bodyData = null, headers = {}, p
     } catch (error) {
         // window.location.href='/'
         // localStorage.clear();
-        console.error("API Error:", error.response || error.message);
+        const errorMessage = error.response.data.message || 'Invalid Value! Please Try Again'
+        toast.error(errorMessage)
+        console.error("API Error:", error.response);
         throw error;
     }
 };

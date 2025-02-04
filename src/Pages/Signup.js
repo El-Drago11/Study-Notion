@@ -5,13 +5,15 @@ import { setSignupData } from '../Store/authReducer';
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import { sendOtp } from '../Services/operations/authApi';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const tabsName = ["Student","Instructor"]
 
 const Signup = () => {
+  
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const location = useLocation();
 
   const[firstName,setFirstName] = useState("");
   const[lastName,setLastName] = useState("");
@@ -20,7 +22,7 @@ const Signup = () => {
   const[password,setPassword] = useState("");
   const[confirmPassword,setConfirmPassword] = useState("");
 
-  const [accountType , setAccountType] = useState(tabsName[0])
+  const [accountType , setAccountType] = useState(location?.state?.accountType || tabsName[0])
 
   const whoIsLogin = (value) =>{
     setAccountType(value);
@@ -44,7 +46,7 @@ const Signup = () => {
         <div className=' bg-richblack-600 p-1 rounded-full w-fit'>
           <ul className='flex flex-row gap-4 text-richblack-100'>
             {tabsName?.map((element,index)=>(
-                <li className={`hover:bg-richblack-700 hover:text-richblack-25 rounded-full px-2 ${element===accountType ? "bg-richblack-900":""}`} key={index} onClick={()=>{whoIsLogin(element)}}>
+                <li className={`hover:bg-richblack-700 hover:text-yellow-25 rounded-full px-2 cursor-pointer ${element===accountType ? "bg-richblack-900 text-yellow-25":""}`} key={index} onClick={()=>{whoIsLogin(element)}}>
                   {element}
                 </li>
             ))}

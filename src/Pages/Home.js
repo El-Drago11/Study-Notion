@@ -12,6 +12,11 @@ import Footer from '../components/common/Footer'
 import ExploreMore from '../components/core/Home/ExploreMore'
 
 const Home = () => {
+
+    const singUpFor = {
+        accountType:'Instructor'
+    }
+
   return (
     <div>
         {/* section1 */}
@@ -19,7 +24,7 @@ const Home = () => {
 
             {/* buuton */}
                 <div className=' mt-5 lg:mt-16 p-2 mx-auto rounded-full bg-richblack-800 font-bold text-richblack-100 transition-all duration-200 hover:scale-95 w-fit shadow-richblack-100 z-0'>
-                    <Link to={"/signup"}>
+                    <Link to={"/signup"} state={singUpFor}>
                         <div className=' flex  items-center gap-2 rounded-full transition-all duration-200 group-hover:bg-richblack-900 py-[3px]'>
                             <p>Become an instructor</p>
                             <AiOutlineArrowRight/>

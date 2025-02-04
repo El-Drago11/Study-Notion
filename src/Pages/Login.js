@@ -47,6 +47,18 @@ const Login = () => {
             ))}
           </ul>
         </div> */}
+        <div className=' bg-richblack-600 p-1 rounded-lg w-full'>
+          <ul className='flex flex-row gap-4 text-richblack-100'>
+                <li className={`text-richblack-25 px-2`}>
+                  <div>
+                    Student : student1@gmail.com  <br/>
+                    Teacher : teacher1@gmail.com  <br/>
+                    Admin : admin@gmail.com  <br/>
+                    Password : 123456
+                  </div>
+                </li>
+          </ul>
+        </div>
         <form onSubmit={userLogin}>
           <label>
             <p className=' text-richblack-50'>Email Address</p>

@@ -57,6 +57,13 @@ export const sidebarLinks = [
   },
   {
     id: 9,
+    name: "User-Support",
+    path: "/supportDesk",
+    type: ACCOUNT_TYPE.ADMIN,
+    icon: "VscTasklist",
+  },
+  {
+    id: 10,
     name: "Sales",
     path: "/dashboard/sales-graph",
     type: ACCOUNT_TYPE.ADMIN,

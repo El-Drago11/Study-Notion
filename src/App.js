@@ -27,6 +27,9 @@ import { getToken,onMessage } from 'firebase/messaging'
 import { messaging } from './Services/firebase/firebase'
 import toast from 'react-hot-toast'
 import LoadindScreen from './components/common/LoaderScreen'
+import Teachers from './components/core/Dashboard/Admin/Teachers'
+import Students from './components/core/Dashboard/Admin/Students'
+import SalesGraph from './components/core/Dashboard/Admin/SalesGraph'
 const logoUrl = 'https://res.cloudinary.com/djkivlxss/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1737476485/rzp_logo_gkzv4q.png';
 
 const App = () => {
@@ -96,6 +99,11 @@ const App = () => {
             <Route path='dashboard/add-course' element={<AddCourses />} />
             <Route path='dashboard/my-courses' element={<MyCourses />} />
             <Route path='dashboard/edit-course/:courseId' element={<EditCourse />} />
+          </>)}
+          {user?.accountType === "Admin" && (<>
+            <Route path='dashboard/teachers' element={<Teachers />} />
+            <Route path='dashboard/Registered-students' element={<Students />} />
+            <Route path='dashboard/sales-graph' element={<SalesGraph />} />
           </>)}
           <Route path='/supportDesk' element={<SupportDesk/>}/>
           <Route path='userChat/:userId' element={<Message/>}/>

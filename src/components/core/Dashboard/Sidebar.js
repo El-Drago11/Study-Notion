@@ -17,11 +17,11 @@ const Sidebar = () => {
     const navigate = useNavigate();
     const[confirmationModal,setConfirmationModal] = useState(null);
 
-    if(authLoading || profileLoading){
-        return(
-            toast.loading("Please wait")
-        )
-    }
+    // if(authLoading || profileLoading){
+    //     return(
+    //         toast.loading("Please wait")
+    //     )
+    // }
 
   return (
     <div className='flex flex-col w-full border-r-[1px] border-r-richblack-600 h-full bg-richblack-700 py-10'>

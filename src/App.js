@@ -30,8 +30,8 @@ import LoadindScreen from './components/common/LoaderScreen'
 const logoUrl = 'https://res.cloudinary.com/djkivlxss/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1737476485/rzp_logo_gkzv4q.png';
 
 const App = () => {
-  const { user } = useSelector((store) => store.profile)
-  const {loading} = useSelector((store)=>store.profile)
+  const {user,loading } = useSelector((store) => store.profile)
+  const signUploading = useSelector((store)=>store.auth.loading)
 
   async function notificationPermission() {
     try {
@@ -103,7 +103,7 @@ const App = () => {
         <Route path='*' element={<ErrorPage />} />
       </Routes>
       {
-        loading && <LoadindScreen/>
+        (loading || signUploading) && <LoadindScreen/>
       }
     </div>
   )

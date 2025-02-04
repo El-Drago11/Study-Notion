@@ -27,13 +27,13 @@ const EditCourse = () => {
     },[])
     if(loading){
         return(
-            <p className=' absolute items-center'>Loaing.......</p>
+            <p className='absolute mx-auto mt-10 text-4xl'>Loading.......</p>
         )
     }
   return (
     <div className=' flex flex-col items-center'>
-        <h1>Edit Course</h1>
-        <div className='flex flex-col bg-richblack-800 w-[75%] mt-7 rounded-md mb-10'>
+        <h1 className=' text-2xl mt-5'>Edit Course</h1>
+        <div className='flex flex-col bg-richblack-800 w-11/12 lg:w-[75%] mt-7 rounded-md mb-5 lg:mb-10'>
             {
                 course ? (<RenderStep/>) : (<p>Course Not Found</p>)
             }

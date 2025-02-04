@@ -22,10 +22,10 @@ const MyCourses = () => {
     },[])
   return (
     <div>
-        <div>
+        {/* <div>
             <h1>My Courses</h1>
             <IconBtn text="Add Course" onclick={()=>navigate("/dashboard/add-course")} children={<IoAddOutline />}/>
-        </div>
+        </div> */}
         { courses && <CoursesTable courses={courses} setCourses={setCourses}/>}
     </div>
   )

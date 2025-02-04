@@ -24,7 +24,7 @@ const RenderStep = () => {
 
   return (
     <div>
-        <div className='grid lg:grid-cols-3 mt-10'>
+        <div className='grid md:grid-cols-3 mt-10'>
           {steps.map((element,index)=>(
             <>
               <div className={"flex flex-col items-center mx-auto"} key={index}>
@@ -38,7 +38,7 @@ const RenderStep = () => {
             </>
           ))}
         </div>
-        <div className=' flex flex-col bg-richblack-800 py-5 px-10 mt-7 rounded-md mb-10'>
+        <div className=' flex flex-col bg-richblack-800 py-5 px-2 md:px-10 mt-7 rounded-md mb-2 lg:mb-10'>
             {step===1 ? (<CourseInfoForm/>) : ""}
             {step===2 ? (<CourseBuildForm/>) : ""}
             {step===3 ? (<PublishCourse/>) : ""}

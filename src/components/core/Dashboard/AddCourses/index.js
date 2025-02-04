@@ -1,20 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import RenderStep from './RenderStep'
 import { IoIosArrowBack } from "react-icons/io";
+import { useDispatch } from 'react-redux';
+import { setEditCourse } from '../../../../Store/courseReducer';
+import toast from 'react-hot-toast';
 
 const  AddCourses = () => {
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch(setEditCourse(false))
+    },[])
+
   return (
-    <div className=' w-[100%]  max-w-maxContent flex flex-row mx-auto justify-between pt-4 gap-4'> 
-        <div className=' w-[70%]'>
+    <div className=' w-[100%]  max-w-maxContent flex flex-col-reverse lg:flex-row mx-auto justify-between pt-4 gap-4'> 
+        <div className=' w-11/12 lg:w-[70%]'>
             <Link to="/dashboard/my-profile"><div className='flex flex-row gap-1 items-center text-richblack-100 text-lg'>{<IoIosArrowBack />}Back to DashBoard</div></Link>
             <div>
                 <RenderStep/>
             </div>
         </div>
-        <div className=' text-richblack-5 w-[30%] bg-richblack-700 p-4 rounded-md h-fit'>
+        <div className=' text-richblack-5 w-11/12 lg:w-[30%] bg-richblack-700 p-4 rounded-md h-fit'>
             <p className=' text-xl mb-3'>Code Upload Tips:</p>
-            <ul className=' flex gap-y-2 flex-col ml-3 text-sm'>
+            <ul className=' flex gap-y-2 flex-col ml-3 text-sm list-decimal'>
                 <li>Set the Course Price option or make it free.</li>
                 <li>Standard size for the course thumbnail is 1024x576.</li>
                 <li>Video section controls the course overview video.</li>

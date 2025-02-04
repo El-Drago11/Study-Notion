@@ -52,7 +52,7 @@ const CoursesTable = ({courses,setCourses}) => {
                 {courses.length === 0 ? <Tr><Td>No Course Found</Td></Tr> :
                     (
                         courses.map((course)=>(
-                            <Tr key={course._id} className='flex gap-x-10 border-b border-richblack-800 px-6 py-8'>
+                            <Tr key={course._id} className='flex flex-row gap-x-10 border-b border-richblack-800 px-6 py-8'>
                                 <Td className='flex flex-1 gap-x-4'>
                                     <img src={course?.thumbnail} className='h-[148px] rounded-lg object-cover'/>
                                     <div className='flex flex-col'>

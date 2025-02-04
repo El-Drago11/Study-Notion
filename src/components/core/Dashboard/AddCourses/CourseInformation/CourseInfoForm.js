@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
-import { addCourseDetails, fetchCourseCategories } from '../../../../../Services/operations/courseDetailsAPI';
+import { addCourseDetails, editCourseDetails, fetchCourseCategories } from '../../../../../Services/operations/courseDetailsAPI';
 import { setCourse, setStep } from '../../../../../Store/courseReducer';
 import { COURSE_STATUS } from '../../../../../utils/constants';
 import Upload from '../../../../common/Upload';
+import toast from 'react-hot-toast';
 
 const CourseInfoForm = () => {
     const {register,handleSubmit,reset,formState:{errors,isSubmitSuccessful},setValue,getValues} = useForm();
@@ -25,9 +26,21 @@ const CourseInfoForm = () => {
             formData.append("whatYouWillLearn", data.whatYouWillLearn)
             formData.append("category", data.category )
             formData.append("instructions", data.instructions)
+            if(!data.courseImage){
+                toast.error('Please add course thumbnail image');
+                window.location.reload();
+                return;
+            }
             formData.append("thumbnailImage", data.courseImage)
             formData.append("status", COURSE_STATUS.DRAFT)
-            const result = await addCourseDetails(formData,token)
+            let result =null;
+            if(editCourse){
+                formData.append("courseId",course._id);
+                result = await editCourseDetails(formData,token)
+            }else{
+
+               result =  await addCourseDetails(formData,token)
+            }
             if(result){
                 dispatch(setStep(2))
                 dispatch(setCourse(result));
@@ -69,11 +82,13 @@ const CourseInfoForm = () => {
             setValue("price", course.price)
             setValue("tag", course.tag)
             setValue("whatYouWillLearn", course.whatYouWillLearn)
-            setValue("category", course.category)
+            setValue("category", course.category._id)
             setValue("instructions", course.instructions)
             setValue("courseImage", course.thumbnail)
+        }else{
+            reset();
         }
-    },[isSubmitSuccessful,reset])
+    },[isSubmitSuccessful,reset,editCourse])
   return (
     <>
         <form onSubmit={handleSubmit(courseDeatilsSubmit)}>
@@ -82,7 +97,7 @@ const CourseInfoForm = () => {
                 <input id='courseName' name='courseName' placeholder='Enter Course Title' type='text' className='form-style p-2 rounded-md bg-richblack-600 text-richblack-5' {...register('courseName',{required:true})}/>
                 {
                     errors.courseName && (
-                        <span className=' text-sm text-richblack-5'>
+                        <span className=' text-sm text-red-200'>
                                 Enter course title
                         </span>
                     )
@@ -93,7 +108,7 @@ const CourseInfoForm = () => {
                 <textarea id='courseDescription' name='courseDescription' type='text' placeholder='Enter Description' className='form-style p-2 rounded-md bg-richblack-600 text-richblack-5 h-36' {...register("courseDescription",{required:true})}/>
                 {
                     errors.courseDescription && (
-                        <span className=' text-sm text-richblack-5'>
+                        <span className=' text-sm text-red-200'>
                             Enter course Description
                         </span>
                     )
@@ -104,7 +119,7 @@ const CourseInfoForm = () => {
                 <input id='price' name='price' type='Number' placeholder='Enter Price' className='form-style p-2 rounded-md bg-richblack-600 text-richblack-5' {...register("price",{required:true,valueAsNumber:true})}/>
                 {
                     errors.price && (
-                        <span className=' text-sm text-richblack-5'>
+                        <span className=' text-sm text-red-200'>
                             Enter course price
                         </span>
                     )
@@ -122,7 +137,7 @@ const CourseInfoForm = () => {
                 </select>
                 {
                     errors.category && (
-                        <span className=' text-sm text-richblack-5'>
+                        <span className=' text-sm text-red-200'>
                             Enter course category
                         </span>
                     )
@@ -135,7 +150,7 @@ const CourseInfoForm = () => {
                 <input id='tag' name='tag' type='text' placeholder='Choose a tag' className='form-style p-2 rounded-md bg-richblack-600 text-richblack-5' {...register("tag",{required:true})}/>
                 {
                     errors.tag && (
-                        <span className=' text-sm text-richblack-5'>
+                        <span className=' text-sm text-red-200'>
                             Enter course tag
                         </span>
                     )
@@ -151,7 +166,7 @@ const CourseInfoForm = () => {
                 <input id='whatYouWillLearn' name='whatYouWillLearn' type='text' placeholder='Enter Benifits Of The Course' className='form-style p-2 rounded-md bg-richblack-600 text-richblack-5' {...register("whatYouWillLearn",{required:true})}/>
                 {
                     errors.whatYouWillLearn && (
-                        <span className=' text-sm text-richblack-5'>
+                        <span className=' text-sm text-red-200'>
                             Enter course Benifits Of The Course
                         </span>
                     )
@@ -161,7 +176,7 @@ const CourseInfoForm = () => {
                 <input id='instructions' name='instructions' type='text' placeholder='Enter instructions' className='form-style p-2 rounded-md bg-richblack-600 text-richblack-5' {...register("instructions",{required:true})}/>
                 {
                     errors.instructions && (
-                        <span className=' text-sm text-richblack-5'>
+                        <span className=' text-sm text-red-200'>
                             Enter course instructions
                         </span>
                     )

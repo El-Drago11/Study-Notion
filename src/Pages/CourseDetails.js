@@ -37,7 +37,7 @@ const CourseDetails = () => {
   return (
       <div className='w-full text-richblack-5  flex flex-col lg:flex-row justify-evenly p-4'>
         <div className='container'>
-          <h1 className=' text-4xl text-center mt-4 mb-6 text-yellow-100'>{courseData?.courseName.toUpperCase()}</h1>
+          <h1 className=' text-2xl lg:text-4xl text-center mt-4 mb-2 lg:mb-6 text-yellow-100'>{courseData?.courseName.toUpperCase()}</h1>
           <figure class="md:flex bg-slate-100 rounded-xl p-2 lg:p-8 md:p-0 dark:bg-slate-800 mt-0 lg:mt-4 border-2 border-white">
             <div className='w-[50%] mx-auto'>
               <img class="object-cover md:h-[100%] md:rounded-none rounded-full mx-auto" src={courseData?.thumbnail} alt="courseImage" />
@@ -66,7 +66,7 @@ const CourseDetails = () => {
           </figure>
         </div>
         <div className='container mx-auto'>
-          <h1 className=' text-4xl text-center mt-4 mb-6 text-yellow-100'>INSTRUCTOR PROFILE</h1>
+          <h1 className=' text-2xl lg:text-4xl text-center mt-10 lg:mt-4 mb-2 lg:mb-6 text-yellow-100'>INSTRUCTOR PROFILE</h1>
           <figure class="md:flex bg-slate-100 rounded-xl p-1 lg:p-8 md:p-0 dark:bg-slate-800 mt-4 mx-auto w-fit border-2 border-white">
             <div className='w-auto'>
               <img class="w-24 h-24 rounded-full mx-auto" src={courseData?.instructor?.image} alt="courseImage" height='200' />

@@ -31,6 +31,7 @@ import Teachers from './components/core/Dashboard/Admin/Teachers'
 import Students from './components/core/Dashboard/Admin/Students'
 import SalesGraph from './components/core/Dashboard/Admin/SalesGraph'
 import YourStudents from './components/core/Dashboard/Instructor/YourStudents'
+import CourseFullDetails from './components/core/Dashboard/StudentCourse/CourseFullDetails'
 const logoUrl = 'https://res.cloudinary.com/djkivlxss/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1737476485/rzp_logo_gkzv4q.png';
 
 const App = () => {
@@ -95,6 +96,7 @@ const App = () => {
           {user?.accountType === "Student" && (<>
             <Route path='dashboard/enrolled-courses' element={<EnrolledCourses />} />
             <Route path='dashboard/cart' element={<Cart />} />
+            <Route path='dashboard/enrolled-course/:courseId' element={<CourseFullDetails/>}/>
           </>)}
           {user?.accountType === "Instructor" && (<>
             <Route path='dashboard/add-course' element={<AddCourses />} />

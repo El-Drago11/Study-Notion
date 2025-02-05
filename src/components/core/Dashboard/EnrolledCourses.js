@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { getEnrolledCourses } from '../../../Services/operations/profileApi';
 import ProgressBar from '@ramonak/react-progress-bar';
+import { useNavigate } from 'react-router-dom';
 
 const EnrolledCourses = () => {
+
+    const navigate = useNavigate()
     const[enrolledCourses , setEnrolledCourses] = useState(null);
 
     const getEnrolledCoursesData = async()=>{
@@ -28,7 +31,7 @@ const EnrolledCourses = () => {
                 <div>
                     {/* Course Card */}
                     {enrolledCourses.map((course,index)=>(
-                        <div className=' grid grid-cols-3 gap-6 mb-6 mt-6' id={index}>
+                        <div className=' grid grid-cols-3 gap-6 mb-6 mt-6' id={index} onClick={()=>navigate(`/dashboard/enrolled-course/${course._id}`)}>
                             <div className='flex flex-row'>
                                 <img src={course?.thumbnail} className='object-cover'/>
                             </div>

@@ -44,18 +44,18 @@ const CourseFullDetails = () => {
                             </div>
                         </div>
                     </div>
-                    <div className=' flex flex-col items-start gap-1 mt-10'>
+                    <div className=' flex flex-col items-start gap-1 mt-5 mg:mt-10'>
                             {
                                 !getCourse?.courseDetails?.courseContent ? <></>
                                 :
                                 <>
                                 {getCourse?.courseDetails?.courseContent.map((item,index)=>(
-                                    <div className='w-full flex flex-col items-start border-2 border-white mt-7 rounded-lg p-2'>
-                                        Chapter{index+1} [{item?.sectionName}]
-                                        <div className='flex flex-col ml-4 my-5 w-full'>
+                                    <div className='w-full flex flex-col items-start border-2 border-white mt-7 rounded-lg p-2 overflow-hidden'>
+                                        <div className='border-b-2 border-white w-full text-start py-2'>Chapter{index+1} [{item?.sectionName}]</div>
+                                        <div className='flex flex-col mb-5 mt-2 pt-2 w-11/12 ml-5'>
                                             {
                                                 item?.subSection?.map((subItem,Subindex)=>(
-                                                    <div className=' flex flex-col w-full items-start gap-2'>
+                                                    <div className='flex flex-col w-11/12 items-center lg:items-start gap-2'>
                                                         <div>Section{Subindex+1}: {subItem?.title}</div>
                                                         <div><ReactPlayer url={subItem?.videoUrl} controls={true} height={100} width={100} playing={false}/></div>
                                                     </div>

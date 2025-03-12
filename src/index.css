@@ -37,4 +37,5 @@ code {
   border-radius: 5%;
   background-color: rgba(249, 249, 249, 0.9);
   box-shadow: 1rem 1rem 1.5rem;
+  z-index: 9999999 !important;
 }

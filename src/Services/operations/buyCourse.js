@@ -39,10 +39,9 @@ export async function buyCourse( token, courses, user_details, navigate, dispatc
         if(!orderResponse.data.success){
             throw new Error(orderResponse.data.message)
         }
-
         // Step3: Option creation
         const options = {
-            key: process.env.RAZORPAY_KEY,
+            key: process.env.REACT_APP_RAZORPAY_KEY,
             currency: orderResponse.data.data.currency,
             amount: `${orderResponse.data.data.amount}`,
             order_id: orderResponse.data.data.id,

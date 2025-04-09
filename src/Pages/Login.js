@@ -51,7 +51,7 @@ const Login = () => {
           <ul className='flex flex-row gap-4 text-richblack-100'>
                 <li className={`text-richblack-25 px-2`}>
                   <div>
-                    Student : student1@gmail.com  <br/>
+                    Student : test2@gmail.com  <br/>
                     Teacher : teacher1@gmail.com  <br/>
                     Admin : admin@gmail.com  <br/>
                     Password : 123456

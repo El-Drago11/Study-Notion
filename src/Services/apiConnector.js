@@ -14,6 +14,7 @@ export const apiConnector = async (method, url, bodyData = null, headers = {}, p
             data: bodyData || null,
             headers: { ...authHeaders,deviceToken, ...headers },
             params: params || null,
+            withCredentials: true,
         });
         return response;
     } catch (error) {
